@@ -1,0 +1,3726 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dev Reference</title>
+  <style>
+    :root {
+      --bg: #f7f7f5;
+      --panel: #ffffff;
+      --border: #e2e1dc;
+      --text: #24231f;
+      --text-muted: #6b6a63;
+      --accent: #b3541e;
+      --accent-soft: #f3e4d7;
+      --code-bg: #f1efe9;
+      --php: #6a4fa0;
+      --js: #a67c00;
+      --java: #a13a3a;
+      --wl: #b3541e;
+      --ruby: #a01d34;
+      --py: #2e6b52;
+      --radius: 10px;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      --header-height: 130px;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      position: relative;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 28px 14px;
+    }
+
+    header h1 {
+      margin: 0 0 4px;
+      font-size: 1.35rem;
+      font-weight: 650;
+      letter-spacing: -0.01em;
+    }
+
+    header p.sub {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    .flex {
+      display: flex;
+      gap: .5rem;
+      align-items: center;
+    }
+
+    .wrap {
+      flex-wrap: wrap;
+    }
+
+    .flex.horizontal {
+      flex-direction: row;
+    }
+
+    .controls {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    #search {
+      flex: 1;
+      min-width: 220px;
+      max-width: 420px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.92rem;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    #search:focus {
+      outline: 2px solid var(--accent-soft);
+      border-color: var(--accent);
+    }
+
+    nav.toc {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      flex-wrap: wrap;
+      align-items: start;
+      font-size: .9rem;
+    }
+
+    nav.toc a {
+      text-decoration: none;
+      color: var(--text);
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      padding: 0 5px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+
+    nav.toc a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    main {
+      max-width: none;
+      margin: 0 auto;
+      padding: 24px 28px 80px;
+    }
+
+    section.category {
+      margin-bottom: 38px;
+      scroll-margin-top: var(--header-height);
+    }
+
+    section.category h2 {
+      font-size: 1.05rem;
+      margin: 0 0 4px;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    section.category h2 .count {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    section.category p.desc {
+      margin: 0 0 14px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .table-wrap {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    table {
+      width: auto;
+      min-width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      position: relative;
+    }
+
+    td::before {
+      content: attr(data-lang);
+      display: block;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+    }
+
+    tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    tbody tr.group-row {
+      border-bottom: none;
+    }
+
+    tbody tr.group-row td {
+      padding: 16px 14px 6px;
+      font-size: 0.7rem;
+      font-weight: 650;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      background: var(--panel);
+    }
+
+    tbody tr.group-row:first-child td {
+      padding-top: 12px;
+    }
+
+    tbody tr.task-row {
+      border-bottom: none;
+    }
+
+    tbody tr.task-row td {
+      padding: 16px 14px 4px;
+      font-weight: 600;
+      color: var(--text);
+      font-size: 0.82rem;
+      background: var(--panel);
+    }
+
+    tbody tr.task-row:first-child td {
+      padding-top: 14px;
+    }
+
+    tbody tr.hidden {
+      display: none;
+    }
+
+    td:first-of-type {
+      padding-left: 14px;
+    }
+
+    td {
+      padding: 12px 14px 1.5rem 0;
+      vertical-align: top;
+      font-size: 0.84rem;
+    }
+
+    td.task {
+      font-weight: 600;
+      color: var(--text);
+      font-size: 0.82rem;
+      width: 320px;
+    }
+
+    .lang-row td {
+      width: 16.6%;
+    }
+
+    td code.snippet {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      background: var(--code-bg);
+      border-radius: 6px;
+      padding: 7px 9px 7px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: #2c2b26;
+      transition: all 2ms ease-in-out;
+      cursor: pointer;
+      position: relative;
+      padding-right: 3rem;
+      max-width: 600px;
+    }
+
+    td code.copied {
+      background-color: lightgreen;
+      transition: all 2ms ease-in-out;
+    }
+
+    td p.note {
+      margin: 0;
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    td p.note code {
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    #empty-state {
+      display: none;
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    pre {
+      margin: .2rem 0;
+    }
+
+    a:not(:hover) {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--accent);
+    }
+
+    a[target="_blank"]::after {
+      content: " \2197";
+      color: var(--text-muted);
+      font-size: .8rem;
+    }
+
+    footer {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 28px 60px;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+    }
+
+    @media (max-width: 900px) {
+
+      table,
+      thead,
+      tbody,
+      tr,
+      td {
+        display: block;
+      }
+
+      colgroup {
+        display: none;
+      }
+
+      thead {
+        display: none;
+      }
+
+      tbody tr {
+        padding: 10px 14px 4px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      td:first-of-type {
+        padding-left: 0;
+      }
+
+      td {
+        padding: 6px 0;
+      }
+
+      td.task {
+        padding-top: 8px;
+        font-size: 0.88rem;
+      }
+
+      tbody tr.group-row {
+        padding: 0;
+        border-bottom: none;
+      }
+
+      tbody tr.group-row td::before {
+        content: none;
+      }
+
+      tbody tr.task-row {
+        padding: 10px 14px 0;
+        border-bottom: none;
+      }
+
+      tbody tr.task-row td {
+        padding: 0;
+      }
+
+      tbody tr.task-row td::before {
+        content: none;
+      }
+
+      tbody tr.lang-row {
+        padding-top: 4px;
+      }
+
+      tbody tr.lang-row td {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Dev Reference</h1>
+    <div class="controls">
+      <input type="text" id="search" placeholder="Filter by task, function name, or keyword…" autocomplete="off">
+      <nav class="toc">
+        <div class="flex horizontal wrap">
+          Functions:
+          <a href="#strings">Strings</a>
+          <a href="#collections">Arrays / Lists</a>
+          <a href="#objects">Objects</a>
+          <a href="#dates">Dates &amp; Times</a>
+          <a href="#json">JSON</a>
+        </div>
+        <div class="flex horizontal wrap">
+          Other:
+          <a href="#html">HTML Reference</a>
+          <a href="#css">CSS Reference</a>
+          <a href="#shell">Shell Commands</a>
+          <a href="#sql">SQL</a>
+          <a href="#git">Git Commands</a>
+          <a href="#regex">Regex Syntax</a>
+          <a href="#vscode">VSCode</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <p class="sub">Cross-language function lookups, CSS, Git commands, VSCode, and Regex, all in one place.</p>
+    <p class="reference-docs flex">
+      Documentation Sites:
+      <a href="https://www.php.net/manual/en/langref.php" target="_blank">PHP</a>
+      <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">JavaScript</a>
+      <a href="https://dev.java/learn/" target="_blank">Java</a>
+      <a href="https://www.ruby-lang.org/en/documentation/" target="_blank">Ruby</a>
+      <a href="https://www.python.org/doc/" target="_blank">Python</a>
+      <a href="https://reference.wolfram.com/language/" target="_blank">Wolfram Language</a>
+      <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank">HTML</a>
+      <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank">CSS</a>
+      <a href="https://linuxcommand.org" target="_blank">Shell</a>
+      <a href="https://sqlzoo.net/wiki/SQL_Tutorial" target="_blank">SQL</a>
+      <a href="https://git-scm.com/docs" target="_blank">Git</a>
+      <a href="https://code.visualstudio.com/Docs" target="_blank">VSCode</a>
+      <a href="https://regex101.com/" target="_blank">Regex</a>
+    </p>
+    <section class="category" id="strings">
+      <h2>String Operations <span class="count"></span></h2>
+      <p class="desc">Replacing, splitting, joining, and matching text.</p>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+
+            <tr class="task-row">
+              <td colspan="6">Replace all occurrences</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">str_replace('foo', 'bar', $str)</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">str.replaceAll('foo', 'bar')</code></pre>
+                <p class="note">Older engines:
+                  <code>str.replace(/foo/g, 'bar')</code>
+                </p>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">str.replace("foo", "bar")</code></pre>
+                <p class="note">
+                  <code>.replace()</code> is literal and already replaces all instances (unlike
+                  <code>.replaceAll</code>, which takes regex).
+                </p>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">str.gsub('foo', 'bar')</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">str.replace('foo', 'bar')</code></pre>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">StringReplace[str, "foo" -&gt; "bar"]</code></pre>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Replace with regex</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">preg_replace('/\d+/', 'NUM', $str)</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">str.replace(/\d+/g, 'NUM')</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">str.replaceAll("\\d+", "NUM")</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">str.gsub(/\d+/, 'NUM')</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">re.sub(r'\d+', 'NUM', str)</code></pre>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">StringReplace[str,
+  RegularExpression["\\d+"] -&gt; "NUM"]</code></pre>
+                <p class="note">Or a native pattern:
+                  <code>DigitCharacter.. -&gt; "NUM"</code>
+                </p>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Replace only first match (or first n)</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">preg_replace('/foo/', 'bar', $str, 1)</code></pre>
+                <p class="note"><code>str_replace</code> has no built-in limit.</p>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">str.replace('foo', 'bar')</code></pre>
+                <p class="note">A string (not regex) argument replaces only the first hit.</p>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">str.replaceFirst("foo", "bar")</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">str.sub('foo', 'bar')</code></pre>
+                <p class="note">
+                  <code>.sub</code> replaces only the first match;
+                  <code>.gsub</code> replaces all.
+                </p>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">str.replace('foo', 'bar', 1)</code></pre>
+                <p class="note">Third argument caps the number of replacements.</p>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">StringReplace[str, "foo" -&gt; "bar", 1]</code></pre>
+                <p class="note">Third argument caps the number of replacements.</p>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Split into a list</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">explode(',', $str)</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">str.split(',')</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">str.split(",")</code></pre>
+                <p class="note">Takes a regex, so
+                  <code>.</code>,
+                  <code>|</code>, etc. need escaping.
+                </p>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">str.split(',')</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">str.split(',')</code></pre>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">StringSplit[str, ","]</code></pre>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Join a list into a string</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">implode(', ', $arr)</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">arr.join(', ')</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">String.join(", ", list)</code></pre>
+                <p class="note">Or
+                  <code>list.stream().collect(Collectors.joining(", "))</code>
+                </p>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">arr.join(', ')</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">', '.join(arr)</code></pre>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">StringRiffle[list, ", "]</code></pre>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Trim whitespace</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">trim($str)</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">str.trim()</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">str.strip()</code></pre>
+                <p class="note">Java 11+, Unicode-aware. Older code uses
+                  <code>.trim()</code> (ASCII whitespace only).
+                </p>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">str.strip</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">str.strip()</code></pre>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">StringTrim[str]</code></pre>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Substring / find index</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">substr($str, 2, 4)
+strpos($str, 'needle')</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">str.substring(2, 6)
+str.indexOf('needle')</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">str.substring(2, 6)
+str.indexOf("needle")</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">str[2, 4]
+str.index('needle')</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">str[2:6]
+str.find('needle')</code></pre>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">StringTake[str, {3, 6}]
+StringPosition[str, "needle"]</code></pre>
+                <p class="note">
+                  <code>StringTake</code> uses 1-based, inclusive indices.
+                </p>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Change case</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">strtoupper($str)
+strtolower($str)</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">str.toUpperCase()
+str.toLowerCase()</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">str.toUpperCase()
+str.toLowerCase()</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">str.upcase
+str.downcase</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">str.upper()
+str.lower()</code></pre>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">ToUpperCase[str]
+ToLowerCase[str]</code></pre>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Test / extract with regex</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">preg_match('/^\d+$/', $str, $m)</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">/^\d+$/.test(str)
+str.match(/\d+/g)</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">Pattern.matches("^\\d+$", str)
+Pattern.compile("\\d+").matcher(str)</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">str.match?(/^\d+$/)
+str.scan(/\d+/)</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">re.match(r'^\d+$', str)
+re.findall(r'\d+', str)</code></pre>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">StringMatchQ[str, RegularExpression["^\\d+$"]]
+StringCases[str, RegularExpression["\\d+"]]</code></pre>
+                <p class="note">Wolfram also has its own native string-pattern syntax as an alternative to regex.</p>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="category" id="collections">
+      <h2>Arrays / Lists <span class="count"></span></h2>
+      <p class="desc">Creating, transforming, and querying collections.</p>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+
+            <tr class="task-row">
+              <td colspan="6">Create a list &amp; get its length</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">$arr = [1, 2, 3];
+count($arr)</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">const arr = [1, 2, 3];
+arr.length</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">List&lt;Integer&gt; list = List.of(1, 2, 3);
+list.size()</code></pre>
+                <p class="note">Plain array:
+                  <code>int[] a = {1,2,3}; a.length</code>
+                </p>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">arr = [1, 2, 3]
+arr.length</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">arr = [1, 2, 3]
+len(arr)</code></pre>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">list = {1, 2, 3};
+Length[list]</code></pre>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Map — transform each element</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">array_map(fn($x) =&gt; $x * 2, $arr)</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">arr.map(x =&gt; x * 2)</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">list.stream()
+    .map(x -&gt; x * 2)
+    .collect(Collectors.toList())</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">arr.map { |x| x * 2 }</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">[x * 2 for x in arr]</code></pre>
+                <p class="note">Or
+                  <code>list(map(lambda x: x * 2, arr))</code>
+                </p>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">Map[#*2 &amp;, list]</code></pre>
+                <p class="note">Shorthand:
+                  <code>2*# &amp; /@ list</code>
+                </p>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Filter</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre
+                  title="copy"><code class="snippet language-php">array_filter($arr, fn($x) =&gt; $x &gt; 2)</code></pre>
+                <p class="note">Keeps original keys — pair with
+                  <code>array_values()</code> to reindex.
+                </p>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">arr.filter(x =&gt; x &gt; 2)</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">list.stream()
+    .filter(x -&gt; x &gt; 2)
+    .collect(Collectors.toList())</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">arr.select { |x| x &gt; 2 }</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">[x for x in arr if x &gt; 2]</code></pre>
+                <p class="note">Or
+                  <code>list(filter(lambda x: x &gt; 2, arr))</code>
+                </p>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">Select[list, # &gt; 2 &amp;]</code></pre>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Reduce / fold to a single value</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">array_reduce($arr,
+  fn($carry, $x) =&gt; $carry + $x, 0)</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre
+                  title="copy"><code class="snippet language-javascript">arr.reduce((acc, x) =&gt; acc + x, 0)</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">list.stream().reduce(0, Integer::sum)</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">arr.reduce(0) { |acc, x| acc + x }</code></pre>
+                <p class="note">For a plain sum,
+                  <code>arr.sum</code> is simpler.
+                </p>
+              </td>
+              <td data-lang="Python">
+                <pre
+                  title="copy"><code class="snippet language-python">functools.reduce(lambda acc, x: acc + x, arr, 0)</code></pre>
+                <p class="note">For a plain sum,
+                  <code>sum(arr)</code> is simpler.
+                </p>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">Fold[Plus, 0, list]</code></pre>
+                <p class="note">For a plain sum,
+                  <code>Total[list]</code> is simpler.
+                </p>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Sort</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">sort($arr);
+usort($arr, fn($a, $b) =&gt; $a &lt;=&gt; $b)</code></pre>
+                <p class="note">Both mutate in place and reindex keys.</p>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">arr.sort((a, b) =&gt; a - b)</code></pre>
+                <p class="note">Mutates in place. Without a comparator, sorts elements as strings.</p>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">Collections.sort(list);
+list.sort(Comparator.naturalOrder())</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">arr.sort
+arr.sort_by { |x| key(x) }</code></pre>
+                <p class="note">Non-destructive. Use
+                  <code>sort!</code> /
+                  <code>sort_by!</code> to mutate in place.
+                </p>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">sorted(arr)
+arr.sort()</code></pre>
+                <p class="note">
+                  <code>sorted()</code> returns a new list;
+                  <code>.sort()</code> mutates in place.
+                </p>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">Sort[list]
+SortBy[list, keyFn]</code></pre>
+                <p class="note">Non-destructive — returns a new sorted list.</p>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Check membership</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">in_array($needle, $arr)</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">arr.includes(x)</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">list.contains(x)</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">arr.include?(x)</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">x in arr</code></pre>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">MemberQ[list, x]</code></pre>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="category" id="objects">
+      <h2>Objects <span class="count"></span></h2>
+      <p class="desc">Key-value structures, and defining/using classes.</p>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+
+            <tr class="task-row">
+              <td colspan="6">Create a key-value object</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre
+                  title="copy"><code class="snippet language-php">$obj = ['name' =&gt; 'Ada', 'age' =&gt; 36];</code></pre>
+                <p class="note">Or
+                  <code>(object) [...]</code> for a
+                  <code>stdClass</code> with
+                  <code>-&gt;</code>
+                  access.
+                </p>
+              </td>
+              <td data-lang="JavaScript">
+                <pre
+                  title="copy"><code class="snippet language-javascript">const obj = { name: 'Ada', age: 36 };</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">Map&lt;String, Object&gt; obj = new HashMap&lt;&gt;();
+obj.put("name", "Ada");
+obj.put("age", 36);</code></pre>
+                <p class="note">Immutable version:
+                  <code>Map.of("name", "Ada", "age", 36)</code>
+                </p>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">obj = { name: 'Ada', age: 36 }</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">obj = {'name': 'Ada', 'age': 36}</code></pre>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy"
+                  class="snippet">assoc = &lt;|"name" -&gt; "Ada", "age" -&gt; 36|&gt;;</code></pre>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Get a property/value</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">$obj['name']</code></pre>
+                <p class="note">Object form:
+                  <code>$obj-&gt;name</code>
+                </p>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">obj.name
+obj['name']</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">obj.get("name")</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">obj[:name]</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">obj['name']</code></pre>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">assoc["name"]</code></pre>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Set/update a property</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">$obj['name'] = 'Grace';</code></pre>
+                <p class="note">Object form:
+                  <code>$obj-&gt;name = 'Grace';</code>
+                </p>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">obj.name = 'Grace';</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">obj.put("name", "Grace");</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">obj[:name] = 'Grace'</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">obj['name'] = 'Grace'</code></pre>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">AssociateTo[assoc, "name" -&gt; "Grace"]</code></pre>
+                <p class="note">Direct part assignment also works:
+                  <code>assoc[["name"]] = "Grace"</code>
+                </p>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Check if a key exists</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">array_key_exists('name', $obj)</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">'name' in obj
+Object.hasOwn(obj, 'name')</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">obj.containsKey("name")</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">obj.key?(:name)</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">'name' in obj</code></pre>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">KeyExistsQ[assoc, "name"]</code></pre>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Iterate over keys/values</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre
+                  title="copy"><code class="snippet language-php">foreach ($obj as $key =&gt; $value) { ... }</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre
+                  title="copy"><code
+                  class="snippet language-javascript">for (const [key, value] of Object.entries(obj)) { ... }</code></pre>
+                <p class="note">Or
+                  <code>Object.keys(obj)</code> /
+                  <code>Object.values(obj)</code>
+                </p>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">for (var e : obj.entrySet()) { ... }</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">obj.each { |key, value| ... }</code></pre>
+                <p class="note">Or
+                  <code>obj.keys</code> /
+                  <code>obj.values</code>
+                </p>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">for key, value in obj.items(): ...</code></pre>
+                <p class="note">Or
+                  <code>obj.keys()</code> /
+                  <code>obj.values()</code>
+                </p>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">KeyValueMap[f, assoc]</code></pre>
+                <p class="note">Or
+                  <code>Keys[assoc]</code> /
+                  <code>Values[assoc]</code>
+                </p>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Merge two objects</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">array_merge($obj1, $obj2)</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">{ ...obj1, ...obj2 }</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">Map&lt;String, Object&gt; merged = new HashMap&lt;&gt;(obj1);
+merged.putAll(obj2);</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">obj1.merge(obj2)</code></pre>
+                <p class="note">Keys from
+                  <code>obj2</code> win on conflict.
+                </p>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">{**obj1, **obj2}</code></pre>
+                <p class="note">Or
+                  <code>obj1 | obj2</code> (3.9+). Keys from
+                  <code>obj2</code> win on conflict.
+                </p>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">Join[assoc1, assoc2]</code></pre>
+                <p class="note">Keys from
+                  <code>assoc2</code> win on conflict, same as JS spread.
+                </p>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Define a class with properties &amp; a method</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">class Person {
+    public function __construct(
+        public string $name,
+        public int $age
+    ) {}
+    public function greet() {
+        return "Hi, I'm {$this-&gt;name}";
+    }
+}</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+  greet() {
+    return `Hi, I'm ${this.name}`;
+  }
+}</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">class Person {
+    String name;
+    int age;
+    Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+    String greet() {
+        return "Hi, I'm " + name;
+    }
+}</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">class Person
+  def initialize(name, age)
+    @name = name
+    @age = age
+  end
+  def greet
+    "Hi, I'm #{@name}"
+  end
+end</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    def greet(self):
+        return f"Hi, I'm {self.name}"</code></pre>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">Person[name_, age_] := &lt;|"name" -&gt; name, "age" -&gt; age|&gt;
+greet[p_Association] := "Hi, I'm " &lt;&gt; p["name"]</code></pre>
+                <p class="note">No built-in class syntax — the idiomatic pattern is a constructor function returning an
+                  Association, plus ordinary functions that operate on it.</p>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Create an instance &amp; call a method</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">$p = new Person('Ada', 36);
+$p-&gt;greet();</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">const p = new Person('Ada', 36);
+p.greet();</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">Person p = new Person("Ada", 36);
+p.greet();</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">p = Person.new('Ada', 36)
+p.greet</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">p = Person('Ada', 36)
+p.greet()</code></pre>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">p = Person["Ada", 36];
+greet[p]</code></pre>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="category" id="dates">
+      <h2>Dates &amp; Times <span class="count">(5)</span></h2>
+      <p class="desc">Getting the current time, formatting, parsing, and doing date math.</p>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+
+            <tr class="task-row">
+              <td colspan="6">Current date/time</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">new DateTime()</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">new Date()</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">LocalDateTime.now()</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">Time.now</code></pre>
+                <p class="note">Or
+                  <code>Date.today</code> for a date-only object.
+                </p>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">datetime.now()</code></pre>
+                <p class="note">Or
+                  <code>date.today()</code> for a date-only object.
+                </p>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">Now</code></pre>
+                <p class="note">Or
+                  <code>DateObject[]</code> for a date-only object.
+                </p>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Format a date</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">$dt-&gt;format('Y-m-d')</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">date.toISOString().slice(0, 10)</code></pre>
+                <p class="note">No built-in format-string API (like
+                  <code>Y-m-d</code>);
+                </p>
+                <pre><code title="copy" class="snippet language-javascript">new Intl.DateTimeFormat('en-US', {
+  year: 'numeric', month: '2-digit', day: '2-digit'
+}).format(date)
+// -&gt; "01/15/2024"</code></pre>
+                <p class="note">
+                  <code>Intl.DateTimeFormat</code> is the standard, locale-aware way to control the output
+                  shape. Reuse one formatter instance for repeated calls — it's relatively expensive to construct.
+                </p>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">DateTimeFormatter.ofPattern("yyyy-MM-dd")
+  .format(date)</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">dt.strftime('%Y-%m-%d')</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">dt.strftime('%Y-%m-%d')</code></pre>
+                <p class="note">Or
+                  <code>dt.date().isoformat()</code> for ISO 8601.
+                </p>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">DateString[date, "ISODateTime"]
+DateString[date, {"Year", "-", "Month", "-", "Day"}]</code></pre>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Parse a date string</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre
+                  title="copy"><code class="snippet language-php">DateTime::createFromFormat('Y-m-d', $str)</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">new Date(str)</code></pre>
+                <p class="note">Parsing is somewhat implementation-dependent for non-ISO formats.</p>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">LocalDate.parse("2024-01-15")</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">Date.parse('2024-01-15')</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre
+                  title="copy"><code class="snippet language-python">datetime.strptime('2024-01-15', '%Y-%m-%d')</code></pre>
+                <p class="note">Or
+                  <code>date.fromisoformat('2024-01-15')</code> for ISO strings.
+                </p>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">DateObject["2024-01-15"]</code></pre>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Add days</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">$dt-&gt;modify('+7 days')</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre
+                  title="copy"><code class="snippet language-javascript">date.setDate(date.getDate() + 7)</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">date.plusDays(7)</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">date + 7</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">date + timedelta(days=7)</code></pre>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">DatePlus[date, 7]</code></pre>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Difference between two dates</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">$d1-&gt;diff($d2)</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">(d2 - d1) / 86400000</code></pre>
+                <p class="note">Manual math on millisecond timestamps; no built-in duration helper.</p>
+              </td>
+              <td data-lang="Java">
+                <pre><code title="copy" class="snippet language-java">ChronoUnit.DAYS.between(d1, d2)</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">(d2 - d1).to_i</code></pre>
+                <p class="note">Date subtraction returns a
+                  <code>Rational</code> number of days.
+                </p>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">(d2 - d1).days</code></pre>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">DateDifference[d1, d2]</code></pre>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="category" id="json">
+      <h2>JSON <span class="count"></span></h2>
+      <p class="desc">Converting between JSON text and native data structures.</p>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+
+            <tr class="task-row">
+              <td colspan="6">Parse JSON text</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">json_decode($str, true)</code></pre>
+                <p class="note">The
+                  <code>true</code> flag returns an associative array instead of an object.
+                </p>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">JSON.parse(str)</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre
+                  title="copy"><code class="snippet language-java">new ObjectMapper().readValue(str, Map.class)</code></pre>
+                <p class="note">No built-in JSON support — needs a library (Jackson or Gson shown here).</p>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">JSON.parse(str)</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">json.loads(str)</code></pre>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">ImportString[str, "RawJSON"]</code></pre>
+              </td>
+            </tr>
+
+            <tr class="task-row">
+              <td colspan="6">Convert to JSON text</td>
+            </tr>
+            <tr class="lang-row">
+              <td data-lang="PHP">
+                <pre><code title="copy" class="snippet language-php">json_encode($arr)</code></pre>
+              </td>
+              <td data-lang="JavaScript">
+                <pre><code title="copy" class="snippet language-javascript">JSON.stringify(obj)</code></pre>
+              </td>
+              <td data-lang="Java">
+                <pre
+                  title="copy"><code class="snippet language-java">new ObjectMapper().writeValueAsString(obj)</code></pre>
+              </td>
+              <td data-lang="Ruby">
+                <pre><code title="copy" class="snippet language-ruby">obj.to_json</code></pre>
+              </td>
+              <td data-lang="Python">
+                <pre><code title="copy" class="snippet language-python">json.dumps(obj)</code></pre>
+              </td>
+              <td data-lang="Wolfram Language">
+                <pre><code title="copy" class="snippet">ExportString[expr, "RawJSON"]</code></pre>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="category" id="html">
+      <h2>HTML Reference <span class="count"></span></h2>
+      <p class="desc">Semantic elements, forms, media, and meta tags worth having on hand.</p>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+
+            <tr class="group-row">
+              <td colspan="2">Document Structure</td>
+            </tr>
+
+            <tr>
+              <td class="task">Boilerplate skeleton</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Character encoding &amp; viewport meta</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;meta charset="UTF-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></pre>
+                <p class="note">The viewport tag is required for responsive layouts to work at all on mobile — without
+                  it, the page renders zoomed out at desktop width.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">SEO / social preview meta tags</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;meta name="description" content="Page summary"&gt;
+&lt;meta property="og:title" content="Page title"&gt;
+&lt;meta property="og:image" content="/preview.png"&gt;</code></pre>
+                <p class="note"><code>og:*</code> (Open Graph) tags control how the page renders when shared on social
+                  platforms and in chat apps.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Link an external stylesheet / favicon</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;link rel="stylesheet" href="/styles.css"&gt;
+&lt;link rel="icon" href="/favicon.ico"&gt;</code></pre>
+                <p class="note">Goes in <code>&lt;head&gt;</code>, unlike <code>&lt;script&gt;</code> which is usually
+                  placed at the end of <code>&lt;body&gt;</code> (or uses <code>defer</code>).</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Preload / preconnect hints</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;link rel="preconnect" href="https://fonts.gstatic.com"&gt;
+&lt;link rel="preload" href="/hero.webp" as="image"&gt;</code></pre>
+                <p class="note">Hints the browser to fetch a critical resource earlier than it otherwise would —
+                  overusing them competes for the same bandwidth and can slow things down instead.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Canonical URL</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;link rel="canonical" href="https://example.com/page"&gt;</code></pre>
+                <p class="note">Tells search engines which URL is the "real" one when the same content is reachable
+                  through multiple URLs (tracking params, http/https, trailing slash).</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Inline stylesheet</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;style&gt;
+  body { margin: 0; }
+&lt;/style&gt;</code></pre>
+                <p class="note">Valid in <code>&lt;head&gt;</code> or <code>&lt;body&gt;</code>, but conventionally
+                  kept in <code>&lt;head&gt;</code> alongside linked stylesheets.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Inline / external script, load timing</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;script src="/app.js" defer&gt;&lt;/script&gt;
+&lt;script&gt;
+  console.log('inline');
+&lt;/script&gt;</code></pre>
+                <p class="note"><code>defer</code> runs the script after parsing finishes, in document order — usually
+                  what you want for a page script placed in <code>&lt;head&gt;</code>.
+                  <code>async</code> runs it as soon as it's loaded, in whatever order that happens, which is
+                  fine for independent scripts (analytics) but not for ones with dependencies between them.
+                </p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Semantic Layout Elements</td>
+            </tr>
+
+            <tr>
+              <td class="task">Page landmarks</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;header&gt;&lt;/header&gt;
+&lt;nav&gt;&lt;/nav&gt;
+&lt;main&gt;&lt;/main&gt;
+&lt;aside&gt;&lt;/aside&gt;
+&lt;footer&gt;&lt;/footer&gt;</code></pre>
+                <p class="note">Prefer these over generic <code>&lt;div&gt;</code>s where they fit — screen readers use
+                  them as navigation landmarks.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Self-contained content block</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;article&gt;
+  &lt;h2&gt;Title&lt;/h2&gt;
+  &lt;p&gt;...&lt;/p&gt;
+&lt;/article&gt;</code></pre>
+                <p class="note"><code>&lt;article&gt;</code> is for content that could stand alone (a post, a card);
+                  <code>&lt;section&gt;</code> is for a thematic grouping within the page.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Collapsible disclosure widget</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;details&gt;
+  &lt;summary&gt;Click to expand&lt;/summary&gt;
+  &lt;p&gt;Hidden content&lt;/p&gt;
+&lt;/details&gt;</code></pre>
+                <p class="note">Native expand/collapse behavior with no JavaScript required.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Search landmark</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;search&gt;
+  &lt;form action="/search"&gt;
+    &lt;input type="search" name="q"&gt;
+  &lt;/form&gt;
+&lt;/search&gt;</code></pre>
+                <p class="note">Marks a search/filter form as a landmark region, same idea as
+                  <code>&lt;nav&gt;</code>. Newer element (Baseline 2024) — check target browser support before
+                  relying on it.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Unordered / ordered lists</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;ul&gt;
+  &lt;li&gt;Item&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start="3" reversed&gt;
+  &lt;li&gt;Item&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+                <p class="note"><code>ol</code>'s <code>start</code>/<code>reversed</code> attributes control the
+                  numbering; use <code>&lt;ul&gt;</code> whenever order doesn't matter.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Description list (term/definition pairs)</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;dl&gt;
+  &lt;dt&gt;HTML&lt;/dt&gt;
+  &lt;dd&gt;HyperText Markup Language&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+                <p class="note">Also fits key-value data like a glossary or metadata panel, not just dictionary-style
+                  definitions.</p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Text Formatting</td>
+            </tr>
+
+            <tr>
+              <td class="task">Bold / italic vs strong/emphasis</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;b&gt;bold text&lt;/b&gt;
+&lt;i&gt;italic text&lt;/i&gt;
+&lt;strong&gt;important text&lt;/strong&gt;
+&lt;em&gt;emphasized text&lt;/em&gt;</code></pre>
+                <p class="note"><code>&lt;b&gt;</code>/<code>&lt;i&gt;</code> are purely visual with no semantic weight;
+                  <code>&lt;strong&gt;</code>/<code>&lt;em&gt;</code> convey importance/stress emphasis to assistive
+                  tech and typically render the same way visually. Prefer the semantic pair unless the bold/italic
+                  really is just a stylistic choice (a book title, a keyword being defined).
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Subscript / superscript</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">H&lt;sub&gt;2&lt;/sub&gt;O
+x&lt;sup&gt;2&lt;/sup&gt;</code></pre>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Tables</td>
+            </tr>
+
+            <tr>
+              <td class="task">Basic table structure</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Age&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Ada&lt;/td&gt;&lt;td&gt;36&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+                <p class="note"><code>&lt;thead&gt;</code>/<code>&lt;tbody&gt;</code> are optional but recommended —
+                  they let a long table's header repeat across printed pages and give styling hooks.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Table caption &amp; footer</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;table&gt;
+  &lt;caption&gt;Quarterly Revenue&lt;/caption&gt;
+  ...
+  &lt;tfoot&gt;
+    &lt;tr&gt;&lt;td&gt;Total&lt;/td&gt;&lt;td&gt;$42k&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;</code></pre>
+                <p class="note"><code>&lt;caption&gt;</code> must be the first child of <code>&lt;table&gt;</code>.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Merge cells across columns/rows</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;td colspan="2"&gt;Spans two columns&lt;/td&gt;
+&lt;td rowspan="2"&gt;Spans two rows&lt;/td&gt;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Associate a header cell with its scope</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;th scope="col"&gt;Name&lt;/th&gt;
+&lt;th scope="row"&gt;Row label&lt;/th&gt;</code></pre>
+                <p class="note"><code>scope</code> tells screen readers which cells a header applies to — important
+                  for any table more complex than a simple grid.</p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Forms &amp; Inputs</td>
+            </tr>
+
+            <tr>
+              <td class="task">Basic form with method/action</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;form method="post" action="/submit"&gt;
+  &lt;input type="text" name="q" required&gt;
+  &lt;button type="submit"&gt;Go&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Text-like input types</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;input type="text"&gt;
+&lt;input type="email"&gt;
+&lt;input type="password"&gt;
+&lt;input type="search"&gt;
+&lt;input type="tel"&gt;
+&lt;input type="url"&gt;</code></pre>
+                <p class="note">Using the right <code>type</code> gets you built-in validation and the matching mobile
+                  keyboard for free — <code>email</code>/<code>tel</code>/<code>url</code> each swap in a
+                  purpose-built keyboard layout on mobile.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Number / range / date &amp; time</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;input type="number" min="0" max="10" step="1"&gt;
+&lt;input type="range" min="0" max="100"&gt;
+&lt;input type="date"&gt;
+&lt;input type="time"&gt;
+&lt;input type="datetime-local"&gt;
+&lt;input type="month"&gt;
+&lt;input type="week"&gt;</code></pre>
+                <p class="note">Date/time inputs return values in a fixed ISO-like format regardless of the user's
+                  locale, which native display uses for formatting.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Checkbox / radio / toggle-style</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;input type="checkbox"&gt;
+&lt;input type="radio" name="choice"&gt;</code></pre>
+                <p class="note">Radios sharing the same <code>name</code> form a mutually-exclusive group.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">File upload</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;input type="file" accept="image/*" multiple&gt;</code></pre>
+                <p class="note"><code>accept</code> is a hint the OS file picker uses to pre-filter — it's not a
+                  security control, so still validate the upload server-side.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Color picker</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;input type="color" value="#b3541e"&gt;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Hidden field</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;input type="hidden" name="csrf_token" value="..."&gt;</code></pre>
+                <p class="note">Still present in the DOM/page source — never a substitute for real server-side
+                  authorization.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Label an input</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;label for="email"&gt;Email&lt;/label&gt;
+&lt;input id="email" type="email"&gt;</code></pre>
+                <p class="note">Matching <code>for</code>/<code>id</code> lets clicking the label focus the input, and
+                  is required for screen readers to announce it correctly.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Dropdown select</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;select name="color"&gt;
+  &lt;option value="r"&gt;Red&lt;/option&gt;
+  &lt;option value="b" selected&gt;Blue&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Multi-line text input</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;textarea name="bio" rows="4" cols="40"&gt;&lt;/textarea&gt;</code></pre>
+                <p class="note">Default content goes between the tags, not in a <code>value</code> attribute.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Autocomplete suggestions for an input</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;input list="browsers" name="browser"&gt;
+&lt;datalist id="browsers"&gt;
+  &lt;option value="Chrome"&gt;
+  &lt;option value="Firefox"&gt;
+&lt;/datalist&gt;</code></pre>
+                <p class="note">Unlike <code>&lt;select&gt;</code>, the user can still type a value not in the list.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Group related fields with a caption</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;fieldset&gt;
+  &lt;legend&gt;Shipping Address&lt;/legend&gt;
+  &lt;input type="text" name="street"&gt;
+&lt;/fieldset&gt;</code></pre>
+                <p class="note"><code>&lt;legend&gt;</code> must be the first child of <code>&lt;fieldset&gt;</code>.
+                  Disabling the fieldset disables every field inside it at once.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Clickable submit/reset/generic button</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;button type="submit"&gt;Save&lt;/button&gt;
+&lt;button type="reset"&gt;Clear&lt;/button&gt;
+&lt;button type="button"&gt;Just JS&lt;/button&gt;</code></pre>
+                <p class="note">Inside a <code>&lt;form&gt;</code>, a <code>&lt;button&gt;</code> with no explicit
+                  <code>type</code> defaults to <code>submit</code> — a common source of accidental form
+                  submissions.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Progress / meter indicators</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;progress value="70" max="100"&gt;&lt;/progress&gt;
+&lt;meter value="0.7" min="0" max="1"&gt;&lt;/meter&gt;</code></pre>
+                <p class="note"><code>&lt;progress&gt;</code> is for task completion; <code>&lt;meter&gt;</code> is for
+                  a scalar measurement within a known range (disk usage, a rating).</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Output of a calculation</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;output name="result" for="a b"&gt;42&lt;/output&gt;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Client-side validation attributes</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;input type="text" required minlength="3" pattern="[A-Za-z]+"&gt;</code></pre>
+                <p class="note">Enforced by the browser before submit, but never a substitute for server-side
+                  validation.</p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Media</td>
+            </tr>
+
+            <tr>
+              <td class="task">Responsive image</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;img src="photo.jpg" alt="Description" width="800" height="600" loading="lazy"&gt;</code></pre>
+                <p class="note">Explicit <code>width</code>/<code>height</code> prevent layout shift while the image
+                  loads; <code>alt</code> is required for accessibility (use <code>alt=""</code> if purely
+                  decorative).</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Multiple sources / art direction</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;picture&gt;
+  &lt;source srcset="photo.webp" type="image/webp"&gt;
+  &lt;img src="photo.jpg" alt="Description"&gt;
+&lt;/picture&gt;</code></pre>
+                <p class="note">Falls back to the <code>&lt;img&gt;</code> if the browser doesn't support the listed
+                  source format.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Video with controls</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;video src="clip.mp4" controls width="640"&gt;&lt;/video&gt;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Embed another page/document</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;iframe src="https://example.com/embed" title="Embedded content" loading="lazy"&gt;&lt;/iframe&gt;</code></pre>
+                <p class="note"><code>title</code> is required for accessibility (screen readers use it to announce
+                  the frame). Add a <code>sandbox</code> attribute when embedding untrusted content to restrict
+                  what it's allowed to do.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Drawable bitmap surface</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;canvas id="chart" width="400" height="200"&gt;&lt;/canvas&gt;</code></pre>
+                <p class="note">Empty until drawn into via JS (2D context or WebGL) — <code>width</code>/
+                  <code>height</code> set the actual pixel resolution, not just display size; scaling it with CSS
+                  instead of these attributes stretches and blurs the drawing.</p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Accessibility</td>
+            </tr>
+
+            <tr>
+              <td class="task">Accessible name for icon-only controls</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;button aria-label="Close"&gt;&amp;times;&lt;/button&gt;</code></pre>
+                <p class="note">Needed whenever there's no visible text label for a screen reader to read.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Hide decorative content from screen readers</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;span aria-hidden="true"&gt;★&lt;/span&gt;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Live region for dynamic updates</td>
+              <td data-lang="Markup">
+                <pre><code title="copy" class="snippet language-xml">&lt;div aria-live="polite"&gt;Saved!&lt;/div&gt;</code></pre>
+                <p class="note">Announces content changes without moving focus. Use <code>assertive</code> only for
+                  urgent, interrupting messages.</p>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="category" id="css">
+      <h2>CSS Reference <span class="count"></span></h2>
+      <p class="desc">Selectors, layout, and common properties worth having on hand.</p>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+
+            <tr class="group-row">
+              <td colspan="2">Selectors</td>
+            </tr>
+
+            <tr>
+              <td class="task">Descendant / direct child</td>
+              <td data-lang="Selector">
+                <pre><code title="copy" class="snippet language-css">.card p</code></pre>
+                <pre><code title="copy" class="snippet language-css">.card &gt; p</code></pre>
+                <p class="note">The first matches any <code>p</code> nested anywhere inside <code>.card</code>; the
+                  <code>&gt;</code> form matches only a direct child.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Adjacent / general sibling</td>
+              <td data-lang="Selector">
+                <pre><code title="copy" class="snippet language-css">h2 + p</code></pre>
+                <pre><code title="copy" class="snippet language-css">h2 ~ p</code></pre>
+                <p class="note"><code>+</code> matches the single element immediately following; <code>~</code> matches
+                  all later siblings.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Attribute selector</td>
+              <td data-lang="Selector">
+                <pre><code title="copy" class="snippet language-css">[data-state="open"]</code></pre>
+                <pre><code title="copy" class="snippet language-css">[href^="https"]</code></pre>
+                <p class="note"><code>^=</code> starts-with, <code>$=</code> ends-with, <code>*=</code> contains.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">nth-child / nth-of-type</td>
+              <td data-lang="Selector">
+                <pre><code title="copy" class="snippet language-css">li:nth-child(2n)</code></pre>
+                <pre><code title="copy" class="snippet language-css">li:nth-child(2n+1)</code></pre>
+                <p class="note"><code>2n</code> selects even items, <code>2n+1</code> odd. <code>nth-of-type</code>
+                  counts only siblings of the same tag, ignoring other element types in between.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">first/last-child, only-child</td>
+              <td data-lang="Selector">
+                <pre><code title="copy" class="snippet language-css">li:first-child</code></pre>
+                <pre><code title="copy" class="snippet language-css">li:last-child</code></pre>
+                <pre><code title="copy" class="snippet language-css">li:only-child</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">:not() / :is() / :where()</td>
+              <td data-lang="Selector">
+                <pre><code title="copy" class="snippet language-css">li:not(.active)</code></pre>
+                <pre><code title="copy" class="snippet language-css">:is(h1, h2, h3) a</code></pre>
+                <p class="note"><code>:where()</code> behaves like <code>:is()</code> but always has zero specificity,
+                  so it's easy to override.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">has() — parent/relational selector</td>
+              <td data-lang="Selector">
+                <pre><code title="copy" class="snippet language-css">.card:has(img)</code></pre>
+                <p class="note">Selects a <code>.card</code> only if it contains an <code>img</code> — the closest thing
+                  CSS has to a "parent selector".</p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Box Model &amp; Sizing</td>
+            </tr>
+
+            <tr>
+              <td class="task">box-sizing</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">box-sizing: border-box;</code></pre>
+                <p class="note">Width/height include padding and border, so the element doesn't grow past its declared
+                  size. Usually set once on <code>*</code>.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Shorthand order: margin/padding</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">margin: 10px 20px 10px 20px;</code></pre>
+                <p class="note">Clockwise from top: top, right, bottom, left. Two values set
+                  vertical/horizontal; one value sets all four.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Viewport-relative units</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">width: 100vw;
+height: 100vh;
+font-size: 4vmin;</code></pre>
+                <p class="note"><code>vh</code>/<code>vw</code> can misbehave on mobile with dynamic browser chrome —
+                  <code>dvh</code>/<code>svh</code>/<code>lvh</code> are the newer, more predictable alternatives.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">clamp() for responsive values</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">font-size: clamp(1rem, 2vw + 0.5rem, 2rem);</code></pre>
+                <p class="note">Arguments are min, preferred, max — avoids a pile of media-query breakpoints for
+                  simple fluid scaling.</p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Flexbox</td>
+            </tr>
+
+            <tr>
+              <td class="task">Center content both axes</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">display: flex;
+align-items: center;
+justify-content: center;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Main axis vs cross axis</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">justify-content: space-between;
+align-items: stretch;</code></pre>
+                <p class="note"><code>justify-content</code> works along the main axis (row by default);
+                  <code>align-items</code> works along the cross axis. Swap roles when
+                  <code>flex-direction: column</code>.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Allow/prevent wrapping</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">flex-wrap: wrap;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Child sizing: grow, shrink, basis</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">flex: 1 1 200px;</code></pre>
+                <p class="note">Shorthand for <code>flex-grow flex-shrink flex-basis</code>. <code>flex: 1</code> is
+                  common shorthand for "grow to fill available space".</p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Grid</td>
+            </tr>
+
+            <tr>
+              <td class="task">Fixed-column grid</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 16px;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Responsive auto-fit grid</td>
+              <td data-lang="Property">
+                <pre
+                  title="copy"><code class="snippet language-css">grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));</code></pre>
+                <p class="note">Columns wrap automatically as space allows — no media query needed.
+                  <code>auto-fill</code> instead of <code>auto-fit</code> keeps empty tracks rather than stretching
+                  existing items.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Place an item by line or name</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">grid-column: 1 / 3;
+grid-row: span 2;</code></pre>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Positioning &amp; Stacking</td>
+            </tr>
+
+            <tr>
+              <td class="task">Position values</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">position: relative;
+position: absolute;
+position: fixed;
+position: sticky;</code></pre>
+                <p class="note"><code>absolute</code> is positioned relative to the nearest ancestor with a
+                  <code>position</code> other than <code>static</code>; <code>sticky</code> toggles between
+                  relative and fixed based on scroll.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">z-index stacking</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">z-index: 10;</code></pre>
+                <p class="note">Only applies to positioned elements (anything but <code>static</code>). A new stacking
+                  context (e.g. from <code>transform</code> or <code>opacity &lt; 1</code>) can trap z-index values
+                  inside it regardless of how high they are.</p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Typography &amp; Text</td>
+            </tr>
+
+            <tr>
+              <td class="task">Truncate with ellipsis (single line)</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;</code></pre>
+                <p class="note">All three are required together.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Truncate with ellipsis (multi-line)</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">display: -webkit-box;
+-webkit-line-clamp: 3;
+-webkit-box-orient: vertical;
+overflow: hidden;</code></pre>
+                <p class="note">Widely supported despite the <code>-webkit-</code> prefix, but still worth a fallback
+                  max-height for the rare unsupported target.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Prevent long words from overflowing</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">overflow-wrap: break-word;</code></pre>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Colors &amp; Custom Properties</td>
+            </tr>
+
+            <tr>
+              <td class="task">Define &amp; use a CSS variable</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">:root {
+  --accent: #b3541e;
+}
+.btn {
+  color: var(--accent);
+}</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Variable with a fallback</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">color: var(--accent, #333);</code></pre>
+                <p class="note">Fallback is used only when <code>--accent</code> is unset, not when it's invalid.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Transparency via alpha channel</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">background: rgb(0 0 0 / 50%);
+background: #00000080;</code></pre>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Transitions &amp; Animation</td>
+            </tr>
+
+            <tr>
+              <td class="task">Basic transition</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">transition: transform 0.2s ease-in-out;</code></pre>
+                <p class="note">Prefer animating <code>transform</code>/<code>opacity</code> over layout properties
+                  like <code>width</code>/<code>top</code> — they don't trigger reflow.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Keyframe animation</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.el {
+  animation: fade-in 0.3s ease-out;
+}</code></pre>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Media &amp; Container Queries</td>
+            </tr>
+
+            <tr>
+              <td class="task">Responsive breakpoint</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">@media (max-width: 600px) {
+  .sidebar { display: none; }
+}</code></pre>
+                <pre><code title="copy" class="snippet language-css">@media (min-width: 900px) {
+  .sidebar { display: block; }
+}</code></pre>
+                <p class="note"><code>max-width</code> targets screens at or below the breakpoint (mobile-first
+                  overrides going down); <code>min-width</code> targets screens at or above it (the more common
+                  mobile-first base-up approach).</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Container query</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">.wrap { container-type: inline-size; }
+@container (min-width: 400px) {
+  .card { flex-direction: row; }
+}</code></pre>
+                <p class="note">Reacts to the size of a containing element rather than the viewport — useful for
+                  components reused at different widths.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">prefers-color-scheme</td>
+              <td data-lang="Property">
+                <pre><code title="copy" class="snippet language-css">@media (prefers-color-scheme: dark) {
+  :root { --bg: #111; }
+}</code></pre>
+                <pre><code title="copy" class="snippet language-css">@media (prefers-color-scheme: light) {
+  :root { --bg: #fff; }
+}</code></pre>
+                <p class="note">Uses the system's prefered color scheme: <code>dark</code> or <code>light</code>.</p>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="category" id="shell">
+      <h2>Shell Commands <span class="count"></span></h2>
+      <p class="desc">Everyday POSIX/bash one-liners for files, text, and processes.</p>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+
+            <tr class="group-row">
+              <td colspan="2">Files &amp; Directories</td>
+            </tr>
+
+            <tr>
+              <td class="task">Find files by name</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">find . -name "*.log"</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Find and delete matching files</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">find . -name "*.tmp" -delete</code></pre>
+                <p class="note">Or <code>-exec rm {} \;</code> on systems without GNU find's <code>-delete</code>.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Find files modified in last N days</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">find . -mtime -7 -type f</code></pre>
+                <p class="note">Negative <code>-7</code> means "less than 7 days ago"; plain <code>7</code> means
+                  "exactly 7".</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Disk usage of a directory</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">du -sh ./some-dir</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Free disk space</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">df -h</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Copy/move recursively, preserving structure</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">cp -r src/ dest/
+rsync -av src/ dest/</code></pre>
+                <p class="note"><code>rsync</code> is safer for large/ongoing syncs — it resumes and only copies
+                  changed files.</p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Text &amp; Search</td>
+            </tr>
+
+            <tr>
+              <td class="task">Search recursively for a pattern</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">grep -rn "TODO" ./src</code></pre>
+                <p class="note"><code>-n</code> shows line numbers, <code>-r</code> recurses into directories.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Search with extended regex, case-insensitive</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">grep -Eri "error|warn" ./logs</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Print a specific column of each line</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">awk '{print $2}' file.txt</code></pre>
+                <p class="note">Fields split on whitespace by default; set <code>-F,</code> for CSV-style delimiters.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Replace text in-place across files</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">sed -i '' 's/foo/bar/g' file.txt</code></pre>
+                <p class="note">The <code>''</code> after <code>-i</code> is required on macOS/BSD sed for
+                  in-place edits with no backup suffix; GNU sed (Linux) omits it.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">First/last N lines of a file</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">head -n 20 file.txt
+tail -n 20 file.txt</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Follow a growing file (logs)</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">tail -f app.log</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Sort and remove duplicate lines</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">sort file.txt | uniq</code></pre>
+                <p class="note"><code>uniq</code> only collapses adjacent duplicates, so the input must be sorted
+                  first.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Count lines/words/bytes</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">wc -l file.txt</code></pre>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Processes &amp; Jobs</td>
+            </tr>
+
+            <tr>
+              <td class="task">Find a process by name</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">ps aux | grep node</code></pre>
+                <p class="note"><code>pgrep -a node</code> does the same without the grep-matches-itself noise.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Kill a process by PID or name</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">kill -9 &lt;pid&gt;
+pkill -f node</code></pre>
+                <p class="note"><code>-9</code> (SIGKILL) can't be caught/ignored — try a plain <code>kill</code>
+                  (SIGTERM) first so the process can clean up.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">What's listening on a port</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">lsof -i :3000</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Run in background / detach</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">long-task &amp;
+nohup long-task &amp; disown</code></pre>
+                <p class="note"><code>nohup</code> + <code>disown</code> lets the process survive the shell
+                  session ending, not just backgrounding within it.</p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Permissions &amp; Environment</td>
+            </tr>
+
+            <tr>
+              <td class="task">Change file permissions</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">chmod +x script.sh
+chmod 644 file.txt</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Change owner/group</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">chown user:group file.txt</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Set/read an environment variable</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">export API_KEY="secret"
+echo "$API_KEY"</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Persist a variable across new shells</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">echo 'export API_KEY="secret"' &gt;&gt; ~/.zshrc</code></pre>
+                <p class="note">Use <code>~/.bashrc</code>/<code>~/.bash_profile</code> instead if the shell is bash.</p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Redirection &amp; Pipes</td>
+            </tr>
+
+            <tr>
+              <td class="task">Redirect stdout / append / stderr</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">cmd &gt; out.txt
+cmd &gt;&gt; out.txt
+cmd 2&gt; err.txt</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Redirect both stdout and stderr together</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">cmd &gt; all.txt 2&gt;&amp;1</code></pre>
+                <p class="note">Order matters — <code>2&gt;&amp;1</code> must come after the stdout redirect to point
+                  stderr at the same already-redirected target.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Chain commands: pipe, and, or</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">cmd1 | cmd2
+cmd1 &amp;&amp; cmd2
+cmd1 || cmd2</code></pre>
+                <p class="note"><code>&amp;&amp;</code> runs the next command only on success (exit code 0);
+                  <code>||</code> only on failure.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Substitute a command's output inline</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">echo "Today is $(date)"</code></pre>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">SSH</td>
+            </tr>
+
+            <tr>
+              <td class="task">Connect to a remote host</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">ssh user@host</code></pre>
+                <p class="note">Add <code>-p 2222</code> if the server listens on a non-default port.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Connect using a specific private key</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">ssh -i ~/.ssh/id_ed25519 user@host</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Generate a new key pair</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">ssh-keygen -t ed25519 -C "you@example.com"</code></pre>
+                <p class="note">Prefer <code>ed25519</code> over the older <code>rsa</code> type — smaller keys,
+                  same or better security.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Copy a public key to a remote host's authorized_keys</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">ssh-copy-id user@host</code></pre>
+                <p class="note">Without it, append manually:
+                  <code>cat ~/.ssh/id_ed25519.pub | ssh user@host "cat &gt;&gt; ~/.ssh/authorized_keys"</code>
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Run a single remote command and exit</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">ssh user@host "df -h && uptime"</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Copy files to/from a remote host</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">scp local-file.txt user@host:/remote/path/
+scp user@host:/remote/path/file.txt ./</code></pre>
+                <p class="note">Add <code>-r</code> to copy directories recursively. <code>rsync -av -e ssh</code>
+                  is usually a better choice for large or repeated transfers.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Mount a remote directory over SSH</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">sshfs user@host:/remote/path ./local-mount</code></pre>
+                <p class="note">Requires <code>sshfs</code> installed (e.g. via macFUSE on macOS). Unmount with
+                  <code>umount ./local-mount</code>.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Local port forwarding (tunnel a remote service)</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">ssh -L 8080:localhost:80 user@host</code></pre>
+                <p class="note">Makes the remote host's port 80 reachable at <code>localhost:8080</code> on your
+                  machine — handy for reaching a service (e.g. a database or admin panel) that isn't exposed
+                  publicly.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Keep a session open in the background</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">ssh -f -N -L 8080:localhost:80 user@host</code></pre>
+                <p class="note"><code>-N</code> means "no remote command", <code>-f</code> backgrounds the process
+                  after authentication — useful for a long-lived tunnel.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Configure a host alias</td>
+              <td data-lang="Command">
+                <pre title="copy"><code class="snippet language-bash">cat &gt;&gt; ~/.ssh/config &lt;&lt;'EOF'
+Host myserver
+  HostName 203.0.113.10
+  User deploy
+  IdentityFile ~/.ssh/id_ed25519
+EOF</code></pre>
+                <p class="note">Afterward, just <code>ssh myserver</code> picks up the host, user, and key
+                  automatically.</p>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="category" id="sql">
+      <h2>SQL <span class="count"></span></h2>
+      <p class="desc">Core ANSI SQL — mostly consistent across Postgres, MySQL, and SQLite. Edge cases noted where
+        dialects diverge.</p>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+
+            <tr class="group-row">
+              <td colspan="2">Querying</td>
+            </tr>
+
+            <tr>
+              <td class="task">Select specific columns with a filter</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">SELECT id, name FROM users WHERE age &gt; 18;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Sort and limit results</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">SELECT * FROM users
+ORDER BY created_at DESC
+LIMIT 10;</code></pre>
+                <p class="note">SQL Server uses <code>TOP 10</code> instead of <code>LIMIT</code>.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Skip rows (pagination)</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">SELECT * FROM users
+ORDER BY id
+LIMIT 10 OFFSET 20;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Distinct values</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">SELECT DISTINCT country FROM users;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Pattern match / wildcard search</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">SELECT * FROM users WHERE email LIKE '%@gmail.com';</code></pre>
+                <p class="note"><code>%</code> matches any run of characters, <code>_</code> matches exactly one.
+                  Use <code>ILIKE</code> in Postgres for case-insensitive matching.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Match against a list of values</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">SELECT * FROM users WHERE status IN ('active', 'trial');</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Check for NULL</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">SELECT * FROM users WHERE deleted_at IS NULL;</code></pre>
+                <p class="note"><code>= NULL</code> never matches anything — NULL comparisons always require
+                  <code>IS [NOT] NULL</code>.
+                </p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Joins</td>
+            </tr>
+
+            <tr>
+              <td class="task">Inner join</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">SELECT o.id, u.name
+FROM orders o
+JOIN users u ON u.id = o.user_id;</code></pre>
+                <p class="note">Only returns rows with a match on both sides.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Left join</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">SELECT u.name, o.id
+FROM users u
+LEFT JOIN orders o ON o.user_id = u.id;</code></pre>
+                <p class="note">Keeps every row from <code>users</code> even when there's no matching order —
+                  unmatched columns come back <code>NULL</code>.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Find rows with no match (anti-join)</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">SELECT u.*
+FROM users u
+LEFT JOIN orders o ON o.user_id = u.id
+WHERE o.id IS NULL;</code></pre>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Aggregation</td>
+            </tr>
+
+            <tr>
+              <td class="task">Group with an aggregate function</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">SELECT user_id, COUNT(*) AS order_count
+FROM orders
+GROUP BY user_id;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Filter groups after aggregation</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">SELECT user_id, COUNT(*) AS order_count
+FROM orders
+GROUP BY user_id
+HAVING COUNT(*) &gt; 5;</code></pre>
+                <p class="note"><code>WHERE</code> filters rows before grouping; <code>HAVING</code> filters
+                  groups after aggregation — an aggregate like <code>COUNT(*)</code> can't be used in
+                  <code>WHERE</code>.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Common aggregate functions</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">SELECT COUNT(*), SUM(amount), AVG(amount), MIN(amount), MAX(amount)
+FROM orders;</code></pre>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Modifying Data</td>
+            </tr>
+
+            <tr>
+              <td class="task">Insert a row</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">INSERT INTO users (name, email) VALUES ('Ada', 'ada@example.com');</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Insert and return the new row</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">INSERT INTO users (name) VALUES ('Ada') RETURNING id;</code></pre>
+                <p class="note">Postgres/SQLite support <code>RETURNING</code>; MySQL doesn't — use
+                  <code>LAST_INSERT_ID()</code> instead.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Update matching rows</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">UPDATE users SET status = 'active' WHERE id = 42;</code></pre>
+                <p class="note">Always pair <code>UPDATE</code>/<code>DELETE</code> with a <code>WHERE</code> — an
+                  omitted clause affects every row in the table.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Insert or update on conflict (upsert)</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">INSERT INTO users (id, name) VALUES (1, 'Ada')
+ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;</code></pre>
+                <p class="note">MySQL equivalent: <code>ON DUPLICATE KEY UPDATE name = VALUES(name)</code>.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Delete matching rows</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">DELETE FROM users WHERE id = 42;</code></pre>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Schema</td>
+            </tr>
+
+            <tr>
+              <td class="task">Create a table</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW()
+);</code></pre>
+                <p class="note"><code>SERIAL</code> is Postgres-specific auto-increment; MySQL uses
+                  <code>AUTO_INCREMENT</code>, SQLite uses <code>INTEGER PRIMARY KEY</code>.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Add / drop a column</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">ALTER TABLE users ADD COLUMN age INT;
+ALTER TABLE users DROP COLUMN age;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Add an index</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">CREATE INDEX idx_users_email ON users (email);</code></pre>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Users &amp; Permissions</td>
+            </tr>
+
+            <tr>
+              <td class="task">Create a user with a password</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">CREATE USER app_user WITH PASSWORD 'change-me';</code></pre>
+                <p class="note">MySQL: <code>CREATE USER 'app_user'@'%' IDENTIFIED BY 'change-me';</code> — the
+                  <code>@'%'</code> host part controls which hosts the user may connect from
+                  (<code>@'localhost'</code> restricts it to local connections only).
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Change a user's password</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">ALTER USER app_user WITH PASSWORD 'new-password';</code></pre>
+                <p class="note">MySQL: <code>ALTER USER 'app_user'@'%' IDENTIFIED BY 'new-password';</code></p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Remove a user</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">DROP USER app_user;</code></pre>
+                <p class="note">Fails if the user still owns objects or has granted privileges pending — reassign
+                  or revoke those first. Add <code>IF EXISTS</code> to avoid an error when the user is already gone.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Grant table privileges</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">GRANT SELECT, INSERT, UPDATE ON users TO app_user;</code></pre>
+                <p class="note">Use <code>GRANT ALL PRIVILEGES ON users TO app_user;</code> for full access, or
+                  <code>ON ALL TABLES IN SCHEMA public</code> (Postgres) to apply to every existing table at once.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Revoke table privileges</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">REVOKE INSERT, UPDATE ON users FROM app_user;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">List a user's granted privileges</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">SELECT * FROM information_schema.role_table_grants
+WHERE grantee = 'app_user';</code></pre>
+                <p class="note">MySQL: <code>SHOW GRANTS FOR 'app_user'@'%';</code></p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Window Functions &amp; CTEs</td>
+            </tr>
+
+            <tr>
+              <td class="task">Row number within a partition</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">SELECT id, user_id,
+  ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY created_at) AS rn
+FROM orders;</code></pre>
+                <p class="note">Useful for picking "the latest row per group" by filtering <code>rn = 1</code> in
+                  an outer query.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Running total</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">SELECT id, amount,
+  SUM(amount) OVER (ORDER BY id) AS running_total
+FROM orders;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Common table expression (CTE)</td>
+              <td data-lang="Query">
+                <pre title="copy"><code class="snippet language-sql">WITH big_orders AS (
+  SELECT * FROM orders WHERE amount &gt; 1000
+)
+SELECT * FROM big_orders WHERE user_id = 42;</code></pre>
+                <p class="note">Mainly for readability — most modern optimizers no longer treat a CTE as an opaque
+                  barrier the way older Postgres versions did.</p>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="category" id="git">
+      <h2>Git Commands <span class="count"></span></h2>
+      <p class="desc">Reverts, resets, rebases, branches, and worktrees worth remembering.</p>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+
+            <tr class="group-row">
+              <td colspan="2">History &amp; Commits</td>
+            </tr>
+
+            <tr>
+              <td class="task">Reverting a PR</td>
+              <td data-lang="Command">
+                <pre
+                  title="copy"><code class="snippet language-bash">git revert -m 1 &lt;merge-commit-hash&gt;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Resetting to an earlier commit</td>
+              <td data-lang="Command">
+                <pre
+                  title="copy"><code
+                  class="snippet language-bash">git reset --hard &lt;commit-hash&gt; | &lt;HEAD-{n}&gt; | HEAD</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Cherry-pick a commit hash</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git cherry-pick &lt;commit-hash&gt;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Cherry-pick a merged PR commit hash</td>
+              <td data-lang="Command">
+                <pre
+                  title="copy"><code class="snippet language-bash">git cherry-pick -m 1 &lt;commit-hash&gt;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Rebase from HEAD</td>
+              <td data-lang="Command">
+                <pre
+                  title="copy"><code class="snippet language-bash">git rebase -i &lt;branch-name&gt; | &lt;HEAD-{n}&gt;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Rebase from initial commit</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git rebase -i --root</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Amend the last commit</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git commit --amend --no-edit</code></pre>
+                <p class="note">Drop <code>--no-edit</code> to change the commit message too. Never amend a commit
+                  that's already been pushed/shared unless you intend to force-push.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Compact one-line log graph</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git log --oneline --graph --decorate --all</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Who changed this line (blame)</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git blame -L 10,20 path/to/file</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Find the commit that introduced a bug</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git bisect start
+git bisect bad
+git bisect good &lt;known-good-commit&gt;</code></pre>
+                <p class="note">Git checks out a midpoint commit after each step — mark it
+                  <code>git bisect good</code>/<code>bad</code> until it narrows down the offending commit, then
+                  <code>git bisect reset</code>.
+                </p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Inspecting Changes</td>
+            </tr>
+
+            <tr>
+              <td class="task">Diff working directory vs last commit</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git diff</code></pre>
+                <p class="note">Add <code>--staged</code> (or <code>--cached</code>) to diff staged changes instead.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Diff two branches/commits</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git diff main..feature-branch</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Show a file at a specific commit</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git show &lt;commit-hash&gt;:path/to/file</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Search commit messages / diffs for a string</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git log --grep="fix login"
+git log -S "functionName"</code></pre>
+                <p class="note"><code>-S</code> (the "pickaxe") finds commits that added/removed a given string in
+                  the diff, not just the commit message.</p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Undoing &amp; Cleaning Up</td>
+            </tr>
+
+            <tr>
+              <td class="task">Unstage a file (keep changes)</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git restore --staged path/to/file</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Discard uncommitted changes to a file</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git restore path/to/file</code></pre>
+                <p class="note">Destructive — permanently discards local edits with no undo.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Stash / list / restore work in progress</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git stash push -m "wip"
+git stash list
+git stash pop</code></pre>
+                <p class="note"><code>pop</code> applies the most recent stash and removes it from the list;
+                  <code>apply</code> does the same but keeps it stashed.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Remove untracked files</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git clean -nd
+git clean -fd</code></pre>
+                <p class="note">Always run <code>-n</code> (dry run) first to see what would be deleted before
+                  running <code>-f</code> for real.</p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Remotes &amp; Syncing</td>
+            </tr>
+
+            <tr>
+              <td class="task">Fetch and prune deleted remote branches</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git fetch --prune</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Update local branch list from a fork/remote</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git remote add upstream &lt;url&gt;
+git fetch upstream</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Push a new local branch and track it</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git push -u origin HEAD</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Force-push safely</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git push --force-with-lease</code></pre>
+                <p class="note">Fails instead of overwriting if someone else pushed to the branch since your last
+                  fetch — safer than a plain <code>--force</code>.</p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Branches</td>
+            </tr>
+
+            <tr>
+              <td class="task">Renaming a branch</td>
+              <td data-lang="Command">
+                <pre
+                  title="copy"><code
+                  class="snippet language-bash">git branch -m &lt;old-branch-name&gt; &lt;new-branch-name&gt;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Deleting a branch</td>
+              <td data-lang="Command">
+                <pre
+                  title="copy"><code class="snippet language-bash">git branch -d &lt;branch-to-delete&gt;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">List branches, including remotes</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git branch -a</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Create and switch to a new branch</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git switch -c &lt;new-branch-name&gt;</code></pre>
+                <p class="note">Older equivalent: <code>git checkout -b &lt;new-branch-name&gt;</code>.</p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Worktrees</td>
+            </tr>
+
+            <tr>
+              <td class="task">Adding a worktree</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git worktree add &lt;branch-name&gt;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Moving a worktree to a new location</td>
+              <td data-lang="Command">
+                <pre
+                  title="copy"><code
+                  class="snippet language-bash">git worktree move &lt;old-branch-location&gt; &lt;new-branch-location&gt;</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">List / remove a worktree</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git worktree list
+git worktree remove &lt;path&gt;</code></pre>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Combining All Commits</td>
+            </tr>
+
+            <tr>
+              <td class="task">Squash all commits into one</td>
+              <td data-lang="Command">
+                <pre><code title="copy" class="snippet language-bash">git switch yourBranch
+git reset --soft master</code></pre>
+                <p class="note">Removes all commits but keeps the changes staged. Commit them together with
+                  <code>git commit -m "commit message"</code>, then push with
+                  <code>git push --force</code> or
+                  <code>git push --force-with-lease</code>.
+                </p>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="category" id="regex">
+      <h2>Regex Syntax <span class="count"></span></h2>
+      <p class="desc">Core building blocks — mostly consistent across PCRE, JavaScript, and Python's <code>re</code>.
+        Edge cases noted where flavors diverge.</p>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+
+            <tr class="group-row">
+              <td colspan="2">Anchors &amp; Boundaries</td>
+            </tr>
+
+            <tr>
+              <td class="task">Start / end of string</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">^foo</code></pre>
+                <pre><code title="copy" class="snippet">foo$</code></pre>
+                <p class="note">With a multiline flag, <code>^</code>/<code>$</code> match start/end of each line
+                  instead.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Word boundary</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">\bcat\b</code></pre>
+                <p class="note">Matches "cat" but not "concatenate". <code>\B</code> is the negation (non-boundary).</p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Character Classes</td>
+            </tr>
+
+            <tr>
+              <td class="task">Any character</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">.</code></pre>
+                <p class="note">Doesn't match a newline unless a "dotall"/"s" flag is set.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Digit / non-digit</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">\d</code></pre>
+                <pre><code title="copy" class="snippet">\D</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Word character / non-word</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">\w</code></pre>
+                <pre><code title="copy" class="snippet">\W</code></pre>
+                <p class="note"><code>\w</code> is <code>[A-Za-z0-9_]</code>.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Whitespace / non-whitespace</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">\s</code></pre>
+                <pre><code title="copy" class="snippet">\S</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Custom set / negated set</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">[aeiou]</code></pre>
+                <pre><code title="copy" class="snippet">[^aeiou]</code></pre>
+                <p class="note">A <code>^</code> as the first character inside <code>[...]</code> negates the set.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Character range</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">[a-z0-9]</code></pre>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Quantifiers</td>
+            </tr>
+
+            <tr>
+              <td class="task">Zero or more / one or more / optional</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">a*</code></pre>
+                <pre><code title="copy" class="snippet">a+</code></pre>
+                <pre><code title="copy" class="snippet">a?</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Exact / range count</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">a{3}</code></pre>
+                <pre><code title="copy" class="snippet">a{2,4}</code></pre>
+                <pre><code title="copy" class="snippet">a{2,}</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Lazy (non-greedy) match</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">".*?"</code></pre>
+                <p class="note">Without the <code>?</code>, <code>.*</code> is greedy and matches as much as possible —
+                  often too much across multiple quoted strings.</p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Groups &amp; Alternation</td>
+            </tr>
+
+            <tr>
+              <td class="task">Capture group</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">(foo|bar)</code></pre>
+                <p class="note">Referenced later as <code>$1</code>/<code>\1</code> depending on the tool.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Non-capturing group</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">(?:foo|bar)</code></pre>
+                <p class="note">Groups for alternation/quantifiers without creating a numbered backreference.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Named capture group</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})</code></pre>
+                <p class="note">Referenced as <code>$&lt;year&gt;</code> (JS) or <code>(?P=year)</code> /
+                  <code>m.group('year')</code> (Python).
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Backreference to an earlier group</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">(\w+)\s\1</code></pre>
+                <p class="note">Matches a repeated word, like "the the". Use <code>\1</code> in most flavors,
+                  <code>$1</code> in replacement strings.
+                </p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Lookaround</td>
+            </tr>
+
+            <tr>
+              <td class="task">Lookahead / negative lookahead</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">foo(?=bar)</code></pre>
+                <pre><code title="copy" class="snippet">foo(?!bar)</code></pre>
+                <p class="note">Matches "foo" only if (not) followed by "bar", without including "bar" in the match.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Lookbehind / negative lookbehind</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">(?&lt;=foo)bar</code></pre>
+                <pre><code title="copy" class="snippet">(?&lt;!foo)bar</code></pre>
+                <p class="note">Not supported in all flavors/older engines — check target support before relying on it.
+                </p>
+              </td>
+            </tr>
+
+            <tr class="group-row">
+              <td colspan="2">Common Flags</td>
+            </tr>
+
+            <tr>
+              <td class="task">Case-insensitive</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">/foo/i</code></pre>
+                <p class="note">Python: <code>re.IGNORECASE</code>. PCRE/grep: <code>-i</code> or inline
+                  <code>(?i)</code>.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Global (all matches, not just first)</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">/foo/g</code></pre>
+                <p class="note">JS-specific flag. Most other languages return all matches by default via a
+                  "findall"/"scan"-style function instead.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Multiline (^ and $ match per line)</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">/^foo/m</code></pre>
+                <p class="note">Python: <code>re.MULTILINE</code>.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Dotall (. matches newlines too)</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">/foo.bar/s</code></pre>
+                <p class="note">Python: <code>re.DOTALL</code>.</p>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="category" id="vscode">
+      <h2>VSCode <span class="count"></span></h2>
+      <p class="desc">Search patterns for the editor's find/replace.</p>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+
+            <tr>
+              <td class="task">Find mis-formatted i18n text</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">i18n="([0-9a-zA-Z]+)"</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Trailing whitespace</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">[ \t]+$</code></pre>
+                <p class="note">Enable the regex toggle, leave replace empty to strip trailing spaces/tabs on every
+                  line.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Blank/empty lines</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">^\s*$\n</code></pre>
+                <p class="note">Requires "match on multiple lines" enabled. Replace with nothing to collapse blank
+                  lines.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">console.log statements</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">console\.log\((.*)\);?\n?</code></pre>
+                <p class="note">Matches the whole line including the trailing newline, so replacing with nothing removes
+                  it cleanly.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">TODO / FIXME comments</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">\/\/\s*(TODO|FIXME).*$</code></pre>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Swap function call args (capture groups)</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">myFunc\((\w+), (\w+)\)</code></pre>
+                <p class="note">Replace with <code>myFunc($2, $1)</code> to swap the two arguments.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Quoted string contents</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">"([^"]*)"</code></pre>
+                <p class="note">Capture group <code>$1</code> holds the text between the quotes — useful for swapping
+                  quote style or wrapping in a function.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Single-quote to double-quote strings</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">'([^']*)'</code></pre>
+                <p class="note">Replace with <code>"$1"</code>. Won't handle escaped quotes inside the string.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Unused single-line imports</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">^import .* from ['"].*['"];\n</code></pre>
+                <p class="note">Search first to confirm the import is actually unused before replacing with nothing.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">CSS hex color to rgb() parts</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})</code></pre>
+                <p class="note">Capture groups <code>$1</code> <code>$2</code> <code>$3</code> hold the R, G, B hex
+                  pairs.</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="task">Lines containing a word (whole-word match)</td>
+              <td data-lang="Pattern">
+                <pre><code title="copy" class="snippet">^.*\bdeprecated\b.*$</code></pre>
+                <p class="note"><code>\b</code> word boundaries stop it from also matching "undeprecated" or
+                  "deprecatedFlag".</p>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <p id="empty-state">No matches. Try a different search term.</p>
+  </main>
+  <footer>
+    Built as a quick-reference cheat sheet, not an exhaustive language spec — behavior can vary by version/runtime
+    (e.g.
+    PHP 7 vs 8, Java version, JS engine). When in doubt, check the language's own docs for edge cases like encoding,
+    locale, and mutability.
+  </footer>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/styles/atom-one-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/languages/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/languages/php.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/languages/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/languages/java.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/languages/ruby.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/languages/bash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/languages/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/languages/sql.min.js"></script>
+
+  <script>hljs.configure({ languages: [] });</script>
+  <script>
+    const searchInput = document.getElementById('search');
+    const rows = Array.from(document.querySelectorAll('tbody tr:not(.group-row):not(.task-row)'));
+    const groupRows = Array.from(document.querySelectorAll('tbody tr.group-row'));
+    const sections = Array.from(document.querySelectorAll('section.category'));
+    const codes = Array.from(document.querySelectorAll('code'));
+    const emptyState = document.getElementById('empty-state');
+
+    function updateCounts() {
+      sections.forEach(sec => {
+        const countableRows = sec.querySelectorAll('tbody tr:not(.group-row):not(.task-row)');
+        const visibleRows = Array.from(countableRows).filter(r => !r.classList.contains('hidden')).length;
+        const totalRows = countableRows.length;
+        const countEl = sec.querySelector('.count');
+        countEl.textContent = visibleRows === totalRows ? `(${totalRows})` : `(${visibleRows}/${totalRows})`;
+        sec.style.display = visibleRows === 0 ? 'none' : '';
+      });
+    }
+
+    function updateGroupRows() {
+      groupRows.forEach(groupRow => {
+        let sib = groupRow.nextElementSibling;
+        let anyVisible = false;
+        while (sib && !sib.classList.contains('group-row')) {
+          if (!sib.classList.contains('hidden')) anyVisible = true;
+          sib = sib.nextElementSibling;
+        }
+        groupRow.classList.toggle('hidden', !anyVisible);
+      });
+    }
+
+    function applyFilter() {
+      const q = searchInput.value.trim().toLowerCase();
+      let anyVisible = false;
+      rows.forEach(row => {
+        const taskRow = row.classList.contains('lang-row') ? row.previousElementSibling : null;
+        const text = (taskRow ? taskRow.textContent : '') + row.textContent;
+        const match = q === '' || text.toLowerCase().includes(q);
+        row.classList.toggle('hidden', !match);
+        if (taskRow) taskRow.classList.toggle('hidden', !match);
+        if (match) anyVisible = true;
+      });
+      updateGroupRows();
+      updateCounts();
+      emptyState.style.display = anyVisible ? 'none' : 'block';
+    }
+
+    async function copyToClipboard(event) {
+      const code = event.currentTarget;
+      const text = code.innerText;
+      await navigator.clipboard
+        .writeText(text)
+        .then(() => {
+          code.classList.add('copied');
+          setTimeout(() => {
+            code.classList.remove('copied');
+          }, 3000);
+        })
+        .catch((e) => console.error(e));
+    }
+
+    codes.forEach(code => {
+      code.addEventListener('click', copyToClipboard);
+    })
+
+    searchInput.addEventListener('input', applyFilter);
+    updateCounts();
+
+    hljs.highlightAll();
+  </script>
+
+</body>
+
+</html>
