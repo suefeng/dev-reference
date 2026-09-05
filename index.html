@@ -90,7 +90,7 @@
                 <pre><code title="copy" class="snippet language-python">str.replace('foo', 'bar')</code></pre>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">StringReplace[str, "foo" -&gt; "bar"]</code></pre>
+                <pre><code title="copy" class="snippet language-bash">StringReplace[str, "foo" -&gt; "bar"]</code></pre>
               </td>
             </tr>
 
@@ -114,7 +114,7 @@
                 <pre><code title="copy" class="snippet language-python">re.sub(r'\d+', 'NUM', str)</code></pre>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">StringReplace[str,
+                <pre><code title="copy" class="snippet language-bash">StringReplace[str,
   RegularExpression["\\d+"] -&gt; "NUM"]</code></pre>
                 <p class="note">Or a native pattern:
                   <code>DigitCharacter.. -&gt; "NUM"</code>
@@ -149,7 +149,7 @@
                 <p class="note">Third argument caps the number of replacements.</p>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">StringReplace[str, "foo" -&gt; "bar", 1]</code></pre>
+                <pre><code title="copy" class="snippet language-bash">StringReplace[str, "foo" -&gt; "bar", 1]</code></pre>
                 <p class="note">Third argument caps the number of replacements.</p>
               </td>
             </tr>
@@ -178,7 +178,7 @@
                 <pre><code title="copy" class="snippet language-python">str.split(',')</code></pre>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">StringSplit[str, ","]</code></pre>
+                <pre><code title="copy" class="snippet language-bash">StringSplit[str, ","]</code></pre>
               </td>
             </tr>
 
@@ -205,7 +205,7 @@
                 <pre><code title="copy" class="snippet language-python">', '.join(arr)</code></pre>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">StringRiffle[list, ", "]</code></pre>
+                <pre><code title="copy" class="snippet language-bash">StringRiffle[list, ", "]</code></pre>
               </td>
             </tr>
 
@@ -232,7 +232,7 @@
                 <pre><code title="copy" class="snippet language-python">str.strip()</code></pre>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">StringTrim[str]</code></pre>
+                <pre><code title="copy" class="snippet language-bash">StringTrim[str]</code></pre>
               </td>
             </tr>
 
@@ -261,7 +261,7 @@ str.index('needle')</code></pre>
 str.find('needle')</code></pre>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">StringTake[str, {3, 6}]
+                <pre><code title="copy" class="snippet language-bash">StringTake[str, {3, 6}]
 StringPosition[str, "needle"]</code></pre>
                 <p class="note">
                   <code>StringTake</code> uses 1-based, inclusive indices.
@@ -294,7 +294,7 @@ str.downcase</code></pre>
 str.lower()</code></pre>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">ToUpperCase[str]
+                <pre><code title="copy" class="snippet language-bash">ToUpperCase[str]
 ToLowerCase[str]</code></pre>
               </td>
             </tr>
@@ -323,7 +323,7 @@ str.scan(/\d+/)</code></pre>
 re.findall(r'\d+', str)</code></pre>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">StringMatchQ[str, RegularExpression["^\\d+$"]]
+                <pre><code title="copy" class="snippet language-bash">StringMatchQ[str, RegularExpression["^\\d+$"]]
 StringCases[str, RegularExpression["\\d+"]]</code></pre>
                 <p class="note">Wolfram also has its own native string-pattern syntax as an alternative to regex.</p>
               </td>
@@ -369,7 +369,7 @@ arr.length</code></pre>
 len(arr)</code></pre>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">list = {1, 2, 3};
+                <pre><code title="copy" class="snippet language-bash">list = {1, 2, 3};
 Length[list]</code></pre>
               </td>
             </tr>
@@ -399,7 +399,7 @@ Length[list]</code></pre>
                 </p>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">Map[#*2 &amp;, list]</code></pre>
+                <pre><code title="copy" class="snippet language-bash">Map[#*2 &amp;, list]</code></pre>
                 <p class="note">Shorthand:
                   <code>2*# &amp; /@ list</code>
                 </p>
@@ -435,7 +435,7 @@ Length[list]</code></pre>
                 </p>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">Select[list, # &gt; 2 &amp;]</code></pre>
+                <pre><code title="copy" class="snippet language-bash">Select[list, # &gt; 2 &amp;]</code></pre>
               </td>
             </tr>
 
@@ -468,7 +468,7 @@ Length[list]</code></pre>
                 </p>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">Fold[Plus, 0, list]</code></pre>
+                <pre><code title="copy" class="snippet language-bash">Fold[Plus, 0, list]</code></pre>
                 <p class="note">For a plain sum,
                   <code>Total[list]</code> is simpler.
                 </p>
@@ -509,7 +509,7 @@ arr.sort()</code></pre>
                 </p>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">Sort[list]
+                <pre><code title="copy" class="snippet language-bash">Sort[list]
 SortBy[list, keyFn]</code></pre>
                 <p class="note">Non-destructive — returns a new sorted list.</p>
               </td>
@@ -535,7 +535,7 @@ SortBy[list, keyFn]</code></pre>
                 <pre><code title="copy" class="snippet language-python">x in arr</code></pre>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">MemberQ[list, x]</code></pre>
+                <pre><code title="copy" class="snippet language-bash">MemberQ[list, x]</code></pre>
               </td>
             </tr>
 
@@ -585,7 +585,7 @@ obj.put("age", 36);</code></pre>
               </td>
               <td data-lang="Wolfram Language">
                 <pre><code title="copy"
-                  class="snippet">assoc = &lt;|"name" -&gt; "Ada", "age" -&gt; 36|&gt;;</code></pre>
+                  class="snippet language-bash">assoc = &lt;|"name" -&gt; "Ada", "age" -&gt; 36|&gt;;</code></pre>
               </td>
             </tr>
 
@@ -613,7 +613,7 @@ obj['name']</code></pre>
                 <pre><code title="copy" class="snippet language-python">obj['name']</code></pre>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">assoc["name"]</code></pre>
+                <pre><code title="copy" class="snippet language-bash">assoc["name"]</code></pre>
               </td>
             </tr>
 
@@ -640,7 +640,7 @@ obj['name']</code></pre>
                 <pre><code title="copy" class="snippet language-python">obj['name'] = 'Grace'</code></pre>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">AssociateTo[assoc, "name" -&gt; "Grace"]</code></pre>
+                <pre><code title="copy" class="snippet language-bash">AssociateTo[assoc, "name" -&gt; "Grace"]</code></pre>
                 <p class="note">Direct part assignment also works:
                   <code>assoc[["name"]] = "Grace"</code>
                 </p>
@@ -668,7 +668,7 @@ Object.hasOwn(obj, 'name')</code></pre>
                 <pre><code title="copy" class="snippet language-python">'name' in obj</code></pre>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">KeyExistsQ[assoc, "name"]</code></pre>
+                <pre><code title="copy" class="snippet language-bash">KeyExistsQ[assoc, "name"]</code></pre>
               </td>
             </tr>
 
@@ -707,7 +707,7 @@ Object.hasOwn(obj, 'name')</code></pre>
                 </p>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">KeyValueMap[f, assoc]</code></pre>
+                <pre><code title="copy" class="snippet language-bash">KeyValueMap[f, assoc]</code></pre>
                 <p class="note">Or
                   <code>Keys[assoc]</code> /
                   <code>Values[assoc]</code>
@@ -743,7 +743,7 @@ merged.putAll(obj2);</code></pre>
                 </p>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">Join[assoc1, assoc2]</code></pre>
+                <pre><code title="copy" class="snippet language-bash">Join[assoc1, assoc2]</code></pre>
                 <p class="note">Keys from
                   <code>assoc2</code> win on conflict, same as JS spread.
                 </p>
@@ -809,7 +809,7 @@ end</code></pre>
         return f"Hi, I'm {self.name}"</code></pre>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">Person[name_, age_] := &lt;|"name" -&gt; name, "age" -&gt; age|&gt;
+                <pre><code title="copy" class="snippet language-bash">Person[name_, age_] := &lt;|"name" -&gt; name, "age" -&gt; age|&gt;
 greet[p_Association] := "Hi, I'm " &lt;&gt; p["name"]</code></pre>
                 <p class="note">No built-in class syntax — the idiomatic pattern is a constructor function returning an
                   Association, plus ordinary functions that operate on it.</p>
@@ -841,7 +841,7 @@ p.greet</code></pre>
 p.greet()</code></pre>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">p = Person["Ada", 36];
+                <pre><code title="copy" class="snippet language-bash">p = Person["Ada", 36];
 greet[p]</code></pre>
               </td>
             </tr>
@@ -884,7 +884,7 @@ greet[p]</code></pre>
                 </p>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">Now</code></pre>
+                <pre><code title="copy" class="snippet language-bash">Now</code></pre>
                 <p class="note">Or
                   <code>DateObject[]</code> for a date-only object.
                 </p>
@@ -926,7 +926,7 @@ greet[p]</code></pre>
                 </p>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">DateString[date, "ISODateTime"]
+                <pre><code title="copy" class="snippet language-bash">DateString[date, "ISODateTime"]
 DateString[date, {"Year", "-", "Month", "-", "Day"}]</code></pre>
               </td>
             </tr>
@@ -957,7 +957,7 @@ DateString[date, {"Year", "-", "Month", "-", "Day"}]</code></pre>
                 </p>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">DateObject["2024-01-15"]</code></pre>
+                <pre><code title="copy" class="snippet language-bash">DateObject["2024-01-15"]</code></pre>
               </td>
             </tr>
 
@@ -982,7 +982,7 @@ DateString[date, {"Year", "-", "Month", "-", "Day"}]</code></pre>
                 <pre><code title="copy" class="snippet language-python">date + timedelta(days=7)</code></pre>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">DatePlus[date, 7]</code></pre>
+                <pre><code title="copy" class="snippet language-bash">DatePlus[date, 7]</code></pre>
               </td>
             </tr>
 
@@ -1010,7 +1010,7 @@ DateString[date, {"Year", "-", "Month", "-", "Day"}]</code></pre>
                 <pre><code title="copy" class="snippet language-python">(d2 - d1).days</code></pre>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">DateDifference[d1, d2]</code></pre>
+                <pre><code title="copy" class="snippet language-bash">DateDifference[d1, d2]</code></pre>
               </td>
             </tr>
 
@@ -1051,7 +1051,7 @@ DateString[date, {"Year", "-", "Month", "-", "Day"}]</code></pre>
                 <pre><code title="copy" class="snippet language-python">json.loads(str)</code></pre>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">ImportString[str, "RawJSON"]</code></pre>
+                <pre><code title="copy" class="snippet language-bash">ImportString[str, "RawJSON"]</code></pre>
               </td>
             </tr>
 
@@ -1076,7 +1076,7 @@ DateString[date, {"Year", "-", "Month", "-", "Day"}]</code></pre>
                 <pre><code title="copy" class="snippet language-python">json.dumps(obj)</code></pre>
               </td>
               <td data-lang="Wolfram Language">
-                <pre><code title="copy" class="snippet">ExportString[expr, "RawJSON"]</code></pre>
+                <pre><code title="copy" class="snippet language-bash">ExportString[expr, "RawJSON"]</code></pre>
               </td>
             </tr>
 
@@ -1239,7 +1239,8 @@ DateString[date, {"Year", "-", "Month", "-", "Day"}]</code></pre>
 &lt;/search&gt;</code></pre>
                 <p class="note">Marks a search/filter form as a landmark region, same idea as
                   <code>&lt;nav&gt;</code>. Newer element (Baseline 2024) — check target browser support before
-                  relying on it.</p>
+                  relying on it.
+                </p>
               </td>
             </tr>
 
@@ -1486,7 +1487,8 @@ x&lt;sup&gt;2&lt;/sup&gt;</code></pre>
 &lt;button type="button"&gt;Just JS&lt;/button&gt;</code></pre>
                 <p class="note">Inside a <code>&lt;form&gt;</code>, a <code>&lt;button&gt;</code> with no explicit
                   <code>type</code> defaults to <code>submit</code> — a common source of accidental form
-                  submissions.</p>
+                  submissions.
+                </p>
               </td>
             </tr>
 
@@ -1565,7 +1567,8 @@ x&lt;sup&gt;2&lt;/sup&gt;</code></pre>
                 <pre><code title="copy" class="snippet language-xml">&lt;canvas id="chart" width="400" height="200"&gt;&lt;/canvas&gt;</code></pre>
                 <p class="note">Empty until drawn into via JS (2D context or WebGL) — <code>width</code>/
                   <code>height</code> set the actual pixel resolution, not just display size; scaling it with CSS
-                  instead of these attributes stretches and blurs the drawing.</p>
+                  instead of these attributes stretches and blurs the drawing.
+                </p>
               </td>
             </tr>
 
@@ -1980,7 +1983,8 @@ background: radial-gradient(circle, #fff, var(--accent));</code></pre>
                 <pre><code title="copy" class="snippet language-css">color: light-dark(#24231f, #f7f7f5);</code></pre>
                 <p class="note">Picks the first value in light mode and the second in dark mode, based on the
                   element's <code>color-scheme</code> — a lighter-weight alternative to duplicating rules inside a
-                  <code>prefers-color-scheme</code> media query.</p>
+                  <code>prefers-color-scheme</code> media query.
+                </p>
               </td>
             </tr>
 
@@ -2141,7 +2145,8 @@ rsync -av src/ dest/</code></pre>
               <td class="task">Print a specific column of each line</td>
               <td data-lang="Command">
                 <pre title="copy"><code class="snippet language-bash">awk '{print $2}' file.txt</code></pre>
-                <p class="note">Fields split on whitespace by default; set <code>-F,</code> for CSV-style delimiters.</p>
+                <p class="note">Fields split on whitespace by default; set <code>-F,</code> for CSV-style delimiters.
+                </p>
               </td>
             </tr>
 
@@ -2254,8 +2259,10 @@ echo "$API_KEY"</code></pre>
             <tr>
               <td class="task">Persist a variable across new shells</td>
               <td data-lang="Command">
-                <pre title="copy"><code class="snippet language-bash">echo 'export API_KEY="secret"' &gt;&gt; ~/.zshrc</code></pre>
-                <p class="note">Use <code>~/.bashrc</code>/<code>~/.bash_profile</code> instead if the shell is bash.</p>
+                <pre
+                  title="copy"><code class="snippet language-bash">echo 'export API_KEY="secret"' &gt;&gt; ~/.zshrc</code></pre>
+                <p class="note">Use <code>~/.bashrc</code>/<code>~/.bash_profile</code> instead if the shell is bash.
+                </p>
               </td>
             </tr>
 
@@ -2322,7 +2329,8 @@ cmd1 || cmd2</code></pre>
             <tr>
               <td class="task">Generate a new key pair</td>
               <td data-lang="Command">
-                <pre title="copy"><code class="snippet language-bash">ssh-keygen -t ed25519 -C "you@example.com"</code></pre>
+                <pre
+                  title="copy"><code class="snippet language-bash">ssh-keygen -t ed25519 -C "you@example.com"</code></pre>
                 <p class="note">Prefer <code>ed25519</code> over the older <code>rsa</code> type — smaller keys,
                   same or better security.</p>
               </td>
@@ -2358,7 +2366,8 @@ scp user@host:/remote/path/file.txt ./</code></pre>
             <tr>
               <td class="task">Mount a remote directory over SSH</td>
               <td data-lang="Command">
-                <pre title="copy"><code class="snippet language-bash">sshfs user@host:/remote/path ./local-mount</code></pre>
+                <pre
+                  title="copy"><code class="snippet language-bash">sshfs user@host:/remote/path ./local-mount</code></pre>
                 <p class="note">Requires <code>sshfs</code> installed (e.g. via macFUSE on macOS). Unmount with
                   <code>umount ./local-mount</code>.
                 </p>
@@ -2378,7 +2387,8 @@ scp user@host:/remote/path/file.txt ./</code></pre>
             <tr>
               <td class="task">Keep a session open in the background</td>
               <td data-lang="Command">
-                <pre title="copy"><code class="snippet language-bash">ssh -f -N -L 8080:localhost:80 user@host</code></pre>
+                <pre
+                  title="copy"><code class="snippet language-bash">ssh -f -N -L 8080:localhost:80 user@host</code></pre>
                 <p class="note"><code>-N</code> means "no remote command", <code>-f</code> backgrounds the process
                   after authentication — useful for a long-lived tunnel.</p>
               </td>
@@ -2418,7 +2428,8 @@ EOF</code></pre>
             <tr>
               <td class="task">Select specific columns with a filter</td>
               <td data-lang="Query">
-                <pre title="copy"><code class="snippet language-sql">SELECT id, name FROM users WHERE age &gt; 18;</code></pre>
+                <pre
+                  title="copy"><code class="snippet language-sql">SELECT id, name FROM users WHERE age &gt; 18;</code></pre>
               </td>
             </tr>
 
@@ -2451,7 +2462,8 @@ LIMIT 10 OFFSET 20;</code></pre>
             <tr>
               <td class="task">Pattern match / wildcard search</td>
               <td data-lang="Query">
-                <pre title="copy"><code class="snippet language-sql">SELECT * FROM users WHERE email LIKE '%@gmail.com';</code></pre>
+                <pre
+                  title="copy"><code class="snippet language-sql">SELECT * FROM users WHERE email LIKE '%@gmail.com';</code></pre>
                 <p class="note"><code>%</code> matches any run of characters, <code>_</code> matches exactly one.
                   Use <code>ILIKE</code> in Postgres for case-insensitive matching.</p>
               </td>
@@ -2460,14 +2472,16 @@ LIMIT 10 OFFSET 20;</code></pre>
             <tr>
               <td class="task">Match against a list of values</td>
               <td data-lang="Query">
-                <pre title="copy"><code class="snippet language-sql">SELECT * FROM users WHERE status IN ('active', 'trial');</code></pre>
+                <pre
+                  title="copy"><code class="snippet language-sql">SELECT * FROM users WHERE status IN ('active', 'trial');</code></pre>
               </td>
             </tr>
 
             <tr>
               <td class="task">Check for NULL</td>
               <td data-lang="Query">
-                <pre title="copy"><code class="snippet language-sql">SELECT * FROM users WHERE deleted_at IS NULL;</code></pre>
+                <pre
+                  title="copy"><code class="snippet language-sql">SELECT * FROM users WHERE deleted_at IS NULL;</code></pre>
                 <p class="note"><code>= NULL</code> never matches anything — NULL comparisons always require
                   <code>IS [NOT] NULL</code>.
                 </p>
@@ -2551,14 +2565,16 @@ FROM orders;</code></pre>
             <tr>
               <td class="task">Insert a row</td>
               <td data-lang="Query">
-                <pre title="copy"><code class="snippet language-sql">INSERT INTO users (name, email) VALUES ('Ada', 'ada@example.com');</code></pre>
+                <pre
+                  title="copy"><code class="snippet language-sql">INSERT INTO users (name, email) VALUES ('Ada', 'ada@example.com');</code></pre>
               </td>
             </tr>
 
             <tr>
               <td class="task">Insert and return the new row</td>
               <td data-lang="Query">
-                <pre title="copy"><code class="snippet language-sql">INSERT INTO users (name) VALUES ('Ada') RETURNING id;</code></pre>
+                <pre
+                  title="copy"><code class="snippet language-sql">INSERT INTO users (name) VALUES ('Ada') RETURNING id;</code></pre>
                 <p class="note">Postgres/SQLite support <code>RETURNING</code>; MySQL doesn't — use
                   <code>LAST_INSERT_ID()</code> instead.
                 </p>
@@ -2568,7 +2584,8 @@ FROM orders;</code></pre>
             <tr>
               <td class="task">Update matching rows</td>
               <td data-lang="Query">
-                <pre title="copy"><code class="snippet language-sql">UPDATE users SET status = 'active' WHERE id = 42;</code></pre>
+                <pre
+                  title="copy"><code class="snippet language-sql">UPDATE users SET status = 'active' WHERE id = 42;</code></pre>
                 <p class="note">Always pair <code>UPDATE</code>/<code>DELETE</code> with a <code>WHERE</code> — an
                   omitted clause affects every row in the table.</p>
               </td>
@@ -2619,7 +2636,8 @@ ALTER TABLE users DROP COLUMN age;</code></pre>
             <tr>
               <td class="task">Add an index</td>
               <td data-lang="Query">
-                <pre title="copy"><code class="snippet language-sql">CREATE INDEX idx_users_email ON users (email);</code></pre>
+                <pre
+                  title="copy"><code class="snippet language-sql">CREATE INDEX idx_users_email ON users (email);</code></pre>
               </td>
             </tr>
 
@@ -2630,7 +2648,8 @@ ALTER TABLE users DROP COLUMN age;</code></pre>
             <tr>
               <td class="task">Create a user with a password</td>
               <td data-lang="Query">
-                <pre title="copy"><code class="snippet language-sql">CREATE USER app_user WITH PASSWORD 'change-me';</code></pre>
+                <pre
+                  title="copy"><code class="snippet language-sql">CREATE USER app_user WITH PASSWORD 'change-me';</code></pre>
                 <p class="note">MySQL: <code>CREATE USER 'app_user'@'%' IDENTIFIED BY 'change-me';</code> — the
                   <code>@'%'</code> host part controls which hosts the user may connect from
                   (<code>@'localhost'</code> restricts it to local connections only).
@@ -2641,7 +2660,8 @@ ALTER TABLE users DROP COLUMN age;</code></pre>
             <tr>
               <td class="task">Change a user's password</td>
               <td data-lang="Query">
-                <pre title="copy"><code class="snippet language-sql">ALTER USER app_user WITH PASSWORD 'new-password';</code></pre>
+                <pre
+                  title="copy"><code class="snippet language-sql">ALTER USER app_user WITH PASSWORD 'new-password';</code></pre>
                 <p class="note">MySQL: <code>ALTER USER 'app_user'@'%' IDENTIFIED BY 'new-password';</code></p>
               </td>
             </tr>
@@ -2658,7 +2678,8 @@ ALTER TABLE users DROP COLUMN age;</code></pre>
             <tr>
               <td class="task">Grant table privileges</td>
               <td data-lang="Query">
-                <pre title="copy"><code class="snippet language-sql">GRANT SELECT, INSERT, UPDATE ON users TO app_user;</code></pre>
+                <pre
+                  title="copy"><code class="snippet language-sql">GRANT SELECT, INSERT, UPDATE ON users TO app_user;</code></pre>
                 <p class="note">Use <code>GRANT ALL PRIVILEGES ON users TO app_user;</code> for full access, or
                   <code>ON ALL TABLES IN SCHEMA public</code> (Postgres) to apply to every existing table at once.
                 </p>
@@ -2668,7 +2689,8 @@ ALTER TABLE users DROP COLUMN age;</code></pre>
             <tr>
               <td class="task">Revoke table privileges</td>
               <td data-lang="Query">
-                <pre title="copy"><code class="snippet language-sql">REVOKE INSERT, UPDATE ON users FROM app_user;</code></pre>
+                <pre
+                  title="copy"><code class="snippet language-sql">REVOKE INSERT, UPDATE ON users FROM app_user;</code></pre>
               </td>
             </tr>
 
@@ -3029,8 +3051,8 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Start / end of string</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">^foo</code></pre>
-                <pre><code title="copy" class="snippet">foo$</code></pre>
+                <pre><code title="copy" class="snippet language-bash">^foo</code></pre>
+                <pre><code title="copy" class="snippet language-bash">foo$</code></pre>
                 <p class="note">With a multiline flag, <code>^</code>/<code>$</code> match start/end of each line
                   instead.</p>
               </td>
@@ -3039,7 +3061,7 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Word boundary</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">\bcat\b</code></pre>
+                <pre><code title="copy" class="snippet language-bash">\bcat\b</code></pre>
                 <p class="note">Matches "cat" but not "concatenate". <code>\B</code> is the negation (non-boundary).</p>
               </td>
             </tr>
@@ -3051,7 +3073,7 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Any character</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">.</code></pre>
+                <pre><code title="copy" class="snippet language-bash">.</code></pre>
                 <p class="note">Doesn't match a newline unless a "dotall"/"s" flag is set.</p>
               </td>
             </tr>
@@ -3059,16 +3081,16 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Digit / non-digit</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">\d</code></pre>
-                <pre><code title="copy" class="snippet">\D</code></pre>
+                <pre><code title="copy" class="snippet language-bash">\d</code></pre>
+                <pre><code title="copy" class="snippet language-bash">\D</code></pre>
               </td>
             </tr>
 
             <tr>
               <td class="task">Word character / non-word</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">\w</code></pre>
-                <pre><code title="copy" class="snippet">\W</code></pre>
+                <pre><code title="copy" class="snippet language-bash">\w</code></pre>
+                <pre><code title="copy" class="snippet language-bash">\W</code></pre>
                 <p class="note"><code>\w</code> is <code>[A-Za-z0-9_]</code>.</p>
               </td>
             </tr>
@@ -3076,16 +3098,16 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Whitespace / non-whitespace</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">\s</code></pre>
-                <pre><code title="copy" class="snippet">\S</code></pre>
+                <pre><code title="copy" class="snippet language-bash">\s</code></pre>
+                <pre><code title="copy" class="snippet language-bash">\S</code></pre>
               </td>
             </tr>
 
             <tr>
               <td class="task">Custom set / negated set</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">[aeiou]</code></pre>
-                <pre><code title="copy" class="snippet">[^aeiou]</code></pre>
+                <pre><code title="copy" class="snippet language-bash">[aeiou]</code></pre>
+                <pre><code title="copy" class="snippet language-bash">[^aeiou]</code></pre>
                 <p class="note">A <code>^</code> as the first character inside <code>[...]</code> negates the set.</p>
               </td>
             </tr>
@@ -3093,7 +3115,7 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Character range</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">[a-z0-9]</code></pre>
+                <pre><code title="copy" class="snippet language-bash">[a-z0-9]</code></pre>
               </td>
             </tr>
 
@@ -3104,25 +3126,25 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Zero or more / one or more / optional</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">a*</code></pre>
-                <pre><code title="copy" class="snippet">a+</code></pre>
-                <pre><code title="copy" class="snippet">a?</code></pre>
+                <pre><code title="copy" class="snippet language-bash">a*</code></pre>
+                <pre><code title="copy" class="snippet language-bash">a+</code></pre>
+                <pre><code title="copy" class="snippet language-bash">a?</code></pre>
               </td>
             </tr>
 
             <tr>
               <td class="task">Exact / range count</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">a{3}</code></pre>
-                <pre><code title="copy" class="snippet">a{2,4}</code></pre>
-                <pre><code title="copy" class="snippet">a{2,}</code></pre>
+                <pre><code title="copy" class="snippet language-bash">a{3}</code></pre>
+                <pre><code title="copy" class="snippet language-bash">a{2,4}</code></pre>
+                <pre><code title="copy" class="snippet language-bash">a{2,}</code></pre>
               </td>
             </tr>
 
             <tr>
               <td class="task">Lazy (non-greedy) match</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">".*?"</code></pre>
+                <pre><code title="copy" class="snippet language-bash">".*?"</code></pre>
                 <p class="note">Without the <code>?</code>, <code>.*</code> is greedy and matches as much as possible —
                   often too much across multiple quoted strings.</p>
               </td>
@@ -3135,7 +3157,7 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Capture group</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">(foo|bar)</code></pre>
+                <pre><code title="copy" class="snippet language-bash">(foo|bar)</code></pre>
                 <p class="note">Referenced later as <code>$1</code>/<code>\1</code> depending on the tool.</p>
               </td>
             </tr>
@@ -3143,7 +3165,7 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Non-capturing group</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">(?:foo|bar)</code></pre>
+                <pre><code title="copy" class="snippet language-bash">(?:foo|bar)</code></pre>
                 <p class="note">Groups for alternation/quantifiers without creating a numbered backreference.</p>
               </td>
             </tr>
@@ -3151,7 +3173,7 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Named capture group</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})</code></pre>
+                <pre><code title="copy" class="snippet language-bash">(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})</code></pre>
                 <p class="note">Referenced as <code>$&lt;year&gt;</code> (JS) or <code>(?P=year)</code> /
                   <code>m.group('year')</code> (Python).
                 </p>
@@ -3161,7 +3183,7 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Backreference to an earlier group</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">(\w+)\s\1</code></pre>
+                <pre><code title="copy" class="snippet language-bash">(\w+)\s\1</code></pre>
                 <p class="note">Matches a repeated word, like "the the". Use <code>\1</code> in most flavors,
                   <code>$1</code> in replacement strings.
                 </p>
@@ -3175,8 +3197,8 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Lookahead / negative lookahead</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">foo(?=bar)</code></pre>
-                <pre><code title="copy" class="snippet">foo(?!bar)</code></pre>
+                <pre><code title="copy" class="snippet language-bash">foo(?=bar)</code></pre>
+                <pre><code title="copy" class="snippet language-bash">foo(?!bar)</code></pre>
                 <p class="note">Matches "foo" only if (not) followed by "bar", without including "bar" in the match.</p>
               </td>
             </tr>
@@ -3184,8 +3206,8 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Lookbehind / negative lookbehind</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">(?&lt;=foo)bar</code></pre>
-                <pre><code title="copy" class="snippet">(?&lt;!foo)bar</code></pre>
+                <pre><code title="copy" class="snippet language-bash">(?&lt;=foo)bar</code></pre>
+                <pre><code title="copy" class="snippet language-bash">(?&lt;!foo)bar</code></pre>
                 <p class="note">Not supported in all flavors/older engines — check target support before relying on it.
                 </p>
               </td>
@@ -3198,7 +3220,7 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Case-insensitive</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">/foo/i</code></pre>
+                <pre><code title="copy" class="snippet language-bash">/foo/i</code></pre>
                 <p class="note">Python: <code>re.IGNORECASE</code>. PCRE/grep: <code>-i</code> or inline
                   <code>(?i)</code>.
                 </p>
@@ -3208,7 +3230,7 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Global (all matches, not just first)</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">/foo/g</code></pre>
+                <pre><code title="copy" class="snippet language-bash">/foo/g</code></pre>
                 <p class="note">JS-specific flag. Most other languages return all matches by default via a
                   "findall"/"scan"-style function instead.</p>
               </td>
@@ -3217,7 +3239,7 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Multiline (^ and $ match per line)</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">/^foo/m</code></pre>
+                <pre><code title="copy" class="snippet language-bash">/^foo/m</code></pre>
                 <p class="note">Python: <code>re.MULTILINE</code>.</p>
               </td>
             </tr>
@@ -3225,7 +3247,7 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Dotall (. matches newlines too)</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">/foo.bar/s</code></pre>
+                <pre><code title="copy" class="snippet language-bash">/foo.bar/s</code></pre>
                 <p class="note">Python: <code>re.DOTALL</code>.</p>
               </td>
             </tr>
@@ -3245,14 +3267,14 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Find mis-formatted i18n text</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">i18n="([0-9a-zA-Z]+)"</code></pre>
+                <pre><code title="copy" class="snippet language-bash">i18n="([0-9a-zA-Z]+)"</code></pre>
               </td>
             </tr>
 
             <tr>
               <td class="task">Trailing whitespace</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">[ \t]+$</code></pre>
+                <pre><code title="copy" class="snippet language-bash">[ \t]+$</code></pre>
                 <p class="note">Enable the regex toggle, leave replace empty to strip trailing spaces/tabs on every
                   line.</p>
               </td>
@@ -3261,7 +3283,7 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Blank/empty lines</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">^\s*$\n</code></pre>
+                <pre><code title="copy" class="snippet language-bash">^\s*$\n</code></pre>
                 <p class="note">Requires "match on multiple lines" enabled. Replace with nothing to collapse blank
                   lines.</p>
               </td>
@@ -3270,7 +3292,7 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">console.log statements</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">console\.log\((.*)\);?\n?</code></pre>
+                <pre><code title="copy" class="snippet language-bash">console\.log\((.*)\);?\n?</code></pre>
                 <p class="note">Matches the whole line including the trailing newline, so replacing with nothing removes
                   it cleanly.</p>
               </td>
@@ -3279,14 +3301,14 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">TODO / FIXME comments</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">\/\/\s*(TODO|FIXME).*$</code></pre>
+                <pre><code title="copy" class="snippet language-bash">\/\/\s*(TODO|FIXME).*$</code></pre>
               </td>
             </tr>
 
             <tr>
               <td class="task">Swap function call args (capture groups)</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">myFunc\((\w+), (\w+)\)</code></pre>
+                <pre><code title="copy" class="snippet language-bash">myFunc\((\w+), (\w+)\)</code></pre>
                 <p class="note">Replace with <code>myFunc($2, $1)</code> to swap the two arguments.</p>
               </td>
             </tr>
@@ -3294,7 +3316,7 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Quoted string contents</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">"([^"]*)"</code></pre>
+                <pre><code title="copy" class="snippet language-bash">"([^"]*)"</code></pre>
                 <p class="note">Capture group <code>$1</code> holds the text between the quotes — useful for swapping
                   quote style or wrapping in a function.</p>
               </td>
@@ -3303,7 +3325,7 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Single-quote to double-quote strings</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">'([^']*)'</code></pre>
+                <pre><code title="copy" class="snippet language-bash">'([^']*)'</code></pre>
                 <p class="note">Replace with <code>"$1"</code>. Won't handle escaped quotes inside the string.</p>
               </td>
             </tr>
@@ -3311,7 +3333,7 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Unused single-line imports</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">^import .* from ['"].*['"];\n</code></pre>
+                <pre><code title="copy" class="snippet language-bash">^import .* from ['"].*['"];\n</code></pre>
                 <p class="note">Search first to confirm the import is actually unused before replacing with nothing.</p>
               </td>
             </tr>
@@ -3319,7 +3341,7 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">CSS hex color to rgb() parts</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})</code></pre>
+                <pre><code title="copy" class="snippet language-bash">#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})</code></pre>
                 <p class="note">Capture groups <code>$1</code> <code>$2</code> <code>$3</code> hold the R, G, B hex
                   pairs.</p>
               </td>
@@ -3328,7 +3350,7 @@ git reset --soft master</code></pre>
             <tr>
               <td class="task">Lines containing a word (whole-word match)</td>
               <td data-lang="Pattern">
-                <pre><code title="copy" class="snippet">^.*\bdeprecated\b.*$</code></pre>
+                <pre><code title="copy" class="snippet language-bash">^.*\bdeprecated\b.*$</code></pre>
                 <p class="note"><code>\b</code> word boundaries stop it from also matching "undeprecated" or
                   "deprecatedFlag".</p>
               </td>
@@ -3342,10 +3364,11 @@ git reset --soft master</code></pre>
     <p id="empty-state">No matches. Try a different search term.</p>
   </main>
   <footer>
-    Built as a quick-reference cheat sheet, not an exhaustive language spec — behavior can vary by version/runtime
-    (e.g.
-    PHP 7 vs 8, Java version, JS engine). When in doubt, check the language's own docs for edge cases like encoding,
-    locale, and mutability.
+    <p>Built as a quick-reference cheat sheet, not an exhaustive language spec — behavior can vary by version/runtime
+      (e.g.
+      PHP 7 vs 8, Java version, JS engine). When in doubt, check the language's own docs for edge cases like encoding,
+      locale, and mutability.</p>
+    <p>Syntax highlighting is from <a href="https://highlightjs.org/" target="_blank">highlightjs.org</a></p>
   </footer>
   <script src="highlight/highlight.min.js"></script>
   <script src="highlight/languages/php.min.js"></script>
